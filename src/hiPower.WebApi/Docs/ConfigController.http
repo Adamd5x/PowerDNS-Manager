@@ -1,0 +1,5 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@apiUrl={{Proto}}://{{HostAddress}}:{{Port}}/api
+
+GET {{apiUrl}}/config
+Accept: {{Accept}}
