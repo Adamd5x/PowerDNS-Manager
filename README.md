@@ -19,6 +19,9 @@
 - Postgres
 - Angular 18
 
-
-
-
+## Infrastructure
+- OS: Ubuntu 22.04 LTS
+- Docker cluster
+  - Solution
+  - Postgres
+- Power DNS
