@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# environment file
+http-client.env.json
+http-client.env.json.user
+httpenv.json
+httpenv.json.user

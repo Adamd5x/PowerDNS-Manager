@@ -1,13 +1,18 @@
+using hiPower.Database.Extensions.DependencyInjection;
+using hiPower.WebApi.Extensions.DependencyInjection;
+using hiPower.Core.Extensions.DependencyInjection;
+using hiPower.Infrastructure.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers ();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer ();
-builder.Services.AddSwaggerGen ();
+builder.Services.ConfigureWebHostServices (builder.Configuration)
+                .ConfigureDbRepository (builder.Configuration)
+                .ConfigureCoreServices ()
+                .ConfigureInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
+
+await app.Services.UseManagerSeederAsync ();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment ())
@@ -22,4 +27,4 @@ app.UseAuthorization ();
 
 app.MapControllers ();
 
-app.Run ();
+await app.RunAsync ();

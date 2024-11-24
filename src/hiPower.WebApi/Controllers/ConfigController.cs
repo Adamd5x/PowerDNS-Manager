@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+using hiPower.Common.Type;
+
 namespace hiPower.WebApi.Controllers
 {
     [Route ("api/config")]
@@ -8,10 +10,17 @@ namespace hiPower.WebApi.Controllers
     public class ConfigController : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<IEnumerable<ConfigItem>>))]
         public IActionResult GetConfig()
         {
-            return Ok ();
+
+            ConfigItem[] endpoints = [
+                new ConfigItem(EndpointType.Servers, "api/servers"),
+                new ConfigItem(EndpointType.Zones, "api/zones"),
+                new ConfigItem(EndpointType.Identity, "api/auth")
+            ];
+
+            return Ok (new ApiResult<IEnumerable<ConfigItem>>(true, endpoints));
         }
     }
 }
