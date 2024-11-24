@@ -1,5 +1,15 @@
 # PowerDNS-Manager
 
+## Architecture
+- Clean Architecture
+- Feature
+
+## Patterns
+- Mediator
+- Repository
+- UnitOfWork
+- Result
+
 ## Frameworks, NuGet packages
 - .NET 8
 - EF Core
@@ -9,12 +19,6 @@
 - Postgres
 - Angular 18
 
-## Patterns
-- Mediator
-- Repository
-- UnitOfWork
-- Result
 
-## Architecture
-- Clean Architecture
-- Feature
+
+
