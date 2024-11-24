@@ -17,7 +17,7 @@ public partial class ManagerDbContext: DbContext
 
         if(!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql ("Server=localhost;Database=hiPower_Manager;user id=sa;Password=P@ssw0rd365;");
+            optionsBuilder.UseNpgsql ("Server=localhost;Database=hiPower_Manager;user id=[userId];Password=[pwd]");
         }
 
         optionsBuilder.AddInterceptors();
