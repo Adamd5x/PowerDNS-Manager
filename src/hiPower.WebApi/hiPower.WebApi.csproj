@@ -8,6 +8,10 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="hiPower.Test.Integration"/>
+	</ItemGroup>
+	
+	<ItemGroup>
 		<Using Include="System.Net.Mime" />
 		<Using Include="hiPower.Dto" />
 		<Using Include="hiPower.Dto.Manager" />

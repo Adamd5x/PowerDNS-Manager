@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hiPower.Model", "src\hiPowe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hiPower.Common.Type", "src\hiPower.Common.Type\hiPower.Common.Type.csproj", "{472A3C3F-99E8-47C8-AAAE-2AB0F373DC59}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9AAC9818-174C-4CA7-A6A7-3A3CEE2A195C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hiPower.Test.Integration", "test\hiPower.Test.Integration\hiPower.Test.Integration.csproj", "{3C659985-42FD-4891-A56B-6D3D36BE939F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{472A3C3F-99E8-47C8-AAAE-2AB0F373DC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{472A3C3F-99E8-47C8-AAAE-2AB0F373DC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{472A3C3F-99E8-47C8-AAAE-2AB0F373DC59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C659985-42FD-4891-A56B-6D3D36BE939F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C659985-42FD-4891-A56B-6D3D36BE939F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C659985-42FD-4891-A56B-6D3D36BE939F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C659985-42FD-4891-A56B-6D3D36BE939F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{47516D8E-5CE4-44D7-A61D-130C5F991991} = {91CF0095-5C27-449E-B37A-D06154F6AD97}
 		{6234012F-D4D1-44F8-B5D5-BEA7B820A456} = {91CF0095-5C27-449E-B37A-D06154F6AD97}
 		{472A3C3F-99E8-47C8-AAAE-2AB0F373DC59} = {91CF0095-5C27-449E-B37A-D06154F6AD97}
+		{3C659985-42FD-4891-A56B-6D3D36BE939F} = {9AAC9818-174C-4CA7-A6A7-3A3CEE2A195C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5E8CDB0-BE42-425F-B06D-EEF8F312C879}
