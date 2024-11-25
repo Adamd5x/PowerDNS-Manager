@@ -1,0 +1,81 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+# The variables that start with a capital letter are from the environment file.
+@apiUrl={{Proto}}://{{HostAddress}}:{{Port}}/api/v1
+@metricsUrl={{Proto}}://{{HostAddress}}:{{Port}}
+@accept=application/json
+@contentType=application/json
+@serverId=localhost
+@zoneName=example.com.
+
+
+# Servers
+GET {{apiUrl}}/servers
+X-API-Key:{{ApiKey}}
+Accepty: {{accept}}
+###
+
+# Server
+GET {{apiUrl}}/servers/{{serverId}}
+X-API-Key: {{ApiKey}}
+Accept: {{accept}}
+###
+
+# Statistics
+GET {{apiUrl}}/servers/{{serverId}}/statistics
+X-API-Key: {{ApiKey}}
+Accept: {{accept}}
+###
+
+# Metrics
+GET {{metricsUrl}}/metrics
+Authorization: {{Auth}}
+Content-Type: text/plain
+###
+
+# Zones
+GET {{apiUrl}}/servers/{{serverId}}/zones
+X-API-Key: {{apiKey}}
+Accept: {{accept}}
+###
+
+# Create a seconadry new zone
+POST {{apiUrl}}/servers/{{serverId}}/zones
+X-API-Key: {{ApiKey}}
+Content-Type: {{contentType}}
+{
+    "name": "{{zoneName}}",
+    "kind": "Slave",
+    "masters": ["{{MasterDns}}"]
+}
+###
+
+# Create a primary new zone
+POST {{apiUrl}}/servers/{{serverId}}/zones
+X-API-Key: {{ApiKey}}
+Content-Type: {{contentType}}
+{
+    "name": "{{zoneName}}",
+    "kind": "Native",
+    "nameservers": [
+        "{{Dns1}}",
+        "{{Dns2}}"
+    ]
+}
+###
+
+# Listing a zone
+GET {{apiUrl}}/servers/{{serverId}}/zones/{{zoneName}}
+X-API-Key: {{ApiKey}}
+Accept: {{accept}}
+###
+
+# Deleting zone
+PATCH {{apiUrl}}/servers/{{serverId}}/zones/{{zoneName}}
+X-API-Key: {{ApiKey}}
+Content-Type: {{contentType}}
+###
+
+# Cache - flush
+PUT {{apiUrl}}/servers/{{serverId}}/cache/flush
+X-API-Key: {{ApiKey}}
+Accept: {{accept}}
