@@ -3,13 +3,16 @@ using Microsoft.Extensions.Logging;
 
 namespace hiPower.Database.Seeder
 {
-    public class ManagerDbSeeder(ManagerDbContext context, ILoggerFactory loggerFactory)
+    public class ManagerDbSeeder(ManagerDbContext context, ILogger<ManagerDbSeeder> logger)
     {
-        private readonly ILogger<ManagerDbSeeder> logger = loggerFactory.CreateLogger<ManagerDbSeeder>();
-
         public async Task MigrateDbAsync()
         {
             bool isDbCreated = await context.Database.EnsureCreatedAsync();
+
+            bool canConnectToDb = await context.Database.CanConnectAsync ();
+
+            logger.LogInformation ("Can connect to the database: {CanConnect}", canConnectToDb);
+            
 
             if (isDbCreated)
             {
@@ -19,9 +22,12 @@ namespace hiPower.Database.Seeder
 
                 if (canMigrateDb)
                 {
+                    logger.LogInformation ("Number of migrations: {Num}", migrations.Count());
+
                     try
                     {
                         await context.Database.MigrateAsync ();
+                        logger.LogInformation ("Migrations have been applied.");
                     }
                     catch (Exception ex) 
                     {

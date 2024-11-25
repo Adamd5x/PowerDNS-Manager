@@ -1,9 +1,12 @@
-using hiPower.Database.Extensions.DependencyInjection;
-using hiPower.WebApi.Extensions.DependencyInjection;
 using hiPower.Core.Extensions.DependencyInjection;
+using hiPower.Database.Extensions.DependencyInjection;
 using hiPower.Infrastructure.Extensions.DependencyInjection;
+using hiPower.WebApi.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddUserSecrets<Program> ();
+builder.Host.ConfigureHost ();
 
 builder.Services.ConfigureWebHostServices (builder.Configuration)
                 .ConfigureDbRepository (builder.Configuration)
@@ -14,7 +17,6 @@ var app = builder.Build();
 
 await app.Services.UseManagerSeederAsync ();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment ())
 {
     app.UseSwagger ();
@@ -23,8 +25,9 @@ if (app.Environment.IsDevelopment ())
 
 app.UseHttpsRedirection ();
 
-app.UseAuthorization ();
+app.UseExceptionHandler(_ => { });
 
+app.UseAuthorization ();
 app.MapControllers ();
 
 await app.RunAsync ();

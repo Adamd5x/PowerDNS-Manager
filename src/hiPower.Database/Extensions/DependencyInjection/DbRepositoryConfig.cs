@@ -10,7 +10,7 @@ namespace hiPower.Database.Extensions.DependencyInjection
     {
         public static IServiceCollection ConfigureDbRepository(this IServiceCollection services, IConfiguration configuration)
         {
-            string? dbConnectionString = configuration.GetConnectionString("DefaultDbConnection");
+            string? dbConnectionString = configuration.GetConnectionString(CommonParams.DbConnectionStringName);
 
             services.AddDbContext<ManagerDbContext> (options =>
             {

@@ -1,26 +1,14 @@
 ﻿using hiPower.Database.Configuration;
+using hiPower.Database.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
 namespace hiPower.Database;
 
-public partial class ManagerDbContext: DbContext
+public partial class ManagerDbContext (DbContextOptions<ManagerDbContext> options) : DbContext(options)
 {
-    public ManagerDbContext() : base()
-    {
-    }
-
-    ManagerDbContext (DbContextOptions<ManagerDbContext> options) : base (options)
-    { }
-
     protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
     {
-
-        if(!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseNpgsql ("Server=[server address];Database=hiPower_Manager;user id=[userId];Password=[pwd]");
-        }
-
-        optionsBuilder.AddInterceptors();
+        optionsBuilder.AddInterceptors(new CreateNewEntryInterceptor());
     }
 
     protected override void OnModelCreating (ModelBuilder modelBuilder)

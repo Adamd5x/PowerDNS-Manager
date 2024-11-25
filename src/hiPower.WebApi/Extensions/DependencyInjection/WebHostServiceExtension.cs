@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using hiPower.WebApi.Middlewares;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace hiPower.WebApi.Extensions.DependencyInjection;
@@ -21,6 +22,8 @@ public static class WebHostServiceExtension
         services.AddSwaggerGen ();
 
         services.AddCorsConfiguration ();
+
+        services.AddExceptionHandler<ExceptionHandler> ();
 
         return services;
     }
