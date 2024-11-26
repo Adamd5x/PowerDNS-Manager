@@ -6,8 +6,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Using Include="ErrorOr" />
+		<Using Include="hiPower.Dto.Manager"/>
+		<Using Include="hiPower.Dto.Remote"/>
+        <Using Include="hiPower.Entity"/>
+		<Using Include="hiPower.Common.Type"/>
+	</ItemGroup>
+	
   <ItemGroup>
+    <PackageReference Include="ErrorOr" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\hiPower.Abstracts\hiPower.Abstracts.csproj" />
+    <ProjectReference Include="..\hiPower.Common.Type\hiPower.Common.Type.csproj" />
+    <ProjectReference Include="..\hiPower.Dto\hiPower.Dto.csproj" />
+    <ProjectReference Include="..\hiPower.Entity\hiPower.Entity.csproj" />
+    <ProjectReference Include="..\hiPower.Repository\hiPower.Repository.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,4 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Using Include="ErrorOr"/>
+		<Using Include="hiPower.Dto.Manager"/>
+		<Using Include="hiPower.Dto.Remote"/>
+	</ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="ErrorOr" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\hiPower.Dto\hiPower.Dto.csproj" />
+    <ProjectReference Include="..\hiPower.Entity\hiPower.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

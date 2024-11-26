@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using hiPower.Abstracts;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace hiPower.Core.Extensions.DependencyInjection;
 
@@ -6,6 +7,8 @@ public static class CoreServicesExtensions
 {
     public static IServiceCollection ConfigureCoreServices(this IServiceCollection services)
     {
+        services.AddScoped<ILocationService, LocationService> ();
+
         return services;
     }
 }
