@@ -16,6 +16,7 @@
 - MediatR
 - Serilog
 - ErrorOr
+- Mapster
 - Postgres
 - Angular 18
 
