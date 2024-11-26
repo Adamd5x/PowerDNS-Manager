@@ -15,7 +15,7 @@ internal class ServerLocationEntityConfiguration : IEntityTypeConfiguration<Serv
         builder.HasIndex (x => x.Name);
 
         builder.Property(x => x.Id)
-               .HasMaxLength(32)
+               .HasMaxLength(36)
                .HasConversion(value => value.ToUpperInvariant(),
                               value => value)
                .IsRequired();

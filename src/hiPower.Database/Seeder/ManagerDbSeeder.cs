@@ -7,13 +7,13 @@ namespace hiPower.Database.Seeder
     {
         public async Task MigrateDbAsync()
         {
-            bool isDbCreated = await context.Database.EnsureCreatedAsync();
+            await context.Database.EnsureCreatedAsync();
 
             bool canConnectToDb = await context.Database.CanConnectAsync ();
             logger.LogInformation ("Can connect to the database: {CanConnect}", canConnectToDb);
             
 
-            if (isDbCreated)
+            if (canConnectToDb)
             {
                 IEnumerable<string>? migrations = await context.Database.GetPendingMigrationsAsync();
 

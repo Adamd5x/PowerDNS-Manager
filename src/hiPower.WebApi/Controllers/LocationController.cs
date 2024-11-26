@@ -73,8 +73,8 @@ namespace hiPower.WebApi.Controllers
                     Status = StatusCodes.Status400BadRequest
                 });
             }
-
-            var response = new ApiResult<Location>(true, result.Value);
+            var temp = result.Value;
+            var response = new ApiResult<Location>(true, temp);
 
             return Created(string.Empty, response);
         }

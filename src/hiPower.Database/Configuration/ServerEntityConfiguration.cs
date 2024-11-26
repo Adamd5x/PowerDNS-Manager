@@ -13,13 +13,13 @@ internal class ServerEntityConfiguration : IEntityTypeConfiguration<Server>
         builder.HasKey ( t => t.Id );
 
         builder.Property(p => p.Id)
-               .HasMaxLength(32)
+               .HasMaxLength(36)
                .HasConversion(value => value.ToUpperInvariant(),
                               value => value)
                .IsRequired ();
 
         builder.Property(p => p.LocationId)
-               .HasMaxLength(32)
+               .HasMaxLength(36)
                .HasConversion(value => value.ToUpperInvariant(),
                               value => value)
                .IsRequired ();

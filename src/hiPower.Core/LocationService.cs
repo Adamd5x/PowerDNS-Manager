@@ -1,27 +1,34 @@
 ﻿using hiPower.Abstracts;
+using MapsterMapper;
 
 namespace hiPower.Core;
 
-public class LocationService(IUnitOfWork unit) : ILocationService
+public class LocationService(IUnitOfWork unit,
+                             IMapper mapper) : ILocationService
 {
-    public Task<ErrorOr<Location>> CreateAsync (Location location)
+    public async Task<ErrorOr<Location>> CreateAsync (Location location)
     {
-        throw new NotImplementedException ();
+        var result = await unit.LocationRepository.CreateAsync(location.Adapt<ServerLocation>());
+        await unit.SaveAsync ();
+        return mapper.Map<Location> (result);
     }
 
-    public Task<ErrorOr<bool>> DeleteAsync (string id)
+    public async Task<ErrorOr<bool>> DeleteAsync (string id)
     {
-        throw new NotImplementedException ();
+        await unit.LocationRepository.DeleteAsync(id);
+        return true;
     }
 
-    public Task<ErrorOr<Location>> GetAsync (string id)
+    public async Task<ErrorOr<Location>> GetAsync (string id)
     {
-        throw new NotImplementedException ();
+        var result = await unit.LocationRepository.GetAsync(x => x.Id.Equals(id.ToUpperInvariant()), null);
+        return result.Adapt<Location> ();
     }
 
-    public Task<ErrorOr<IEnumerable<Location>>> GetAsync ()
+    public async Task<ErrorOr<IEnumerable<Location>>> GetAsync ()
     {
-        throw new NotImplementedException ();
+        var result = await unit.LocationRepository.GetAll(null, null,null);
+        return result.Adapt<IEnumerable<Location>> ().ToErrorOr ();
     }
 
     public Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetServers (string id)
@@ -29,8 +36,16 @@ public class LocationService(IUnitOfWork unit) : ILocationService
         throw new NotImplementedException ();
     }
 
-    public Task<ErrorOr<Location>> UpdateAsync (string id, Location location)
+    public async Task<ErrorOr<Location>> UpdateAsync (string id, Location location)
     {
-        throw new NotImplementedException ();
+        if (!id.Equals(location.Id, StringComparison.OrdinalIgnoreCase))
+        {
+            return Error.NotFound (location.Id);
+        }
+        var result = unit.LocationRepository
+                         .Update(location.Adapt<ServerLocation>())
+                         .ToErrorOr();
+
+        return await Task.FromResult(result.Adapt<Location> ());
     }
 }

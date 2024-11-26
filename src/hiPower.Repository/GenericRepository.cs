@@ -68,7 +68,7 @@ public class GenericRepository<TEntity>(ManagerDbContext dbContext) : IGenericRe
                           .FirstOrDefaultAsync ();
     }
 
-    public TEntity Updatec (TEntity entity)
+    public TEntity Update (TEntity entity)
     {
         dbSet.Update (entity);
         return entity;

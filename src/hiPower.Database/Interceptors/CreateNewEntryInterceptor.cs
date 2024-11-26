@@ -19,7 +19,7 @@ internal class CreateNewEntryInterceptor: SaveChangesInterceptor
 
             foreach (var entry in addedTrackList) 
             { 
-                bool canUpdateId = entry.State == EntityState.Added && Guid.TryParse(entry.Property(p => p.Id).CurrentValue.ToString(), out Guid _);
+                bool canUpdateId = entry.State == EntityState.Added;
 
                 if (canUpdateId) {
                     entry.State = EntityState.Added;
