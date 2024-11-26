@@ -6,6 +6,8 @@ public class Server: EntityBase
 {
     public string Name { get; set; }
 
+    public string LocalId { get; set; }
+
     public string Proto { get; set; }
 
     public string HostAddress { get; set; }

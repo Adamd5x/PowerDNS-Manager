@@ -14,7 +14,7 @@ namespace hiPower.WebApi.Middlewares
 
             await httpContext.Response.WriteAsJsonAsync (exception, cancellationToken).ConfigureAwait (false);
 
-            return true;   
+            return true;
         }
     }
 }

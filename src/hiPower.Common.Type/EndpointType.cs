@@ -4,5 +4,6 @@ public enum EndpointType
 {
     Servers,
     Zones,
-    Identity
+    Identity,
+    Locations
 }

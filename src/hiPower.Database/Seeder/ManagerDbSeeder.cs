@@ -10,7 +10,6 @@ namespace hiPower.Database.Seeder
             bool isDbCreated = await context.Database.EnsureCreatedAsync();
 
             bool canConnectToDb = await context.Database.CanConnectAsync ();
-
             logger.LogInformation ("Can connect to the database: {CanConnect}", canConnectToDb);
             
 
@@ -22,7 +21,7 @@ namespace hiPower.Database.Seeder
 
                 if (canMigrateDb)
                 {
-                    logger.LogInformation ("Number of migrations: {Num}", migrations.Count());
+                    logger.LogInformation ("Number of migrations: {Num}", migrations!.Count());
 
                     try
                     {

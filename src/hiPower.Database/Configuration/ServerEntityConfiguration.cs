@@ -24,6 +24,9 @@ internal class ServerEntityConfiguration : IEntityTypeConfiguration<Server>
                               value => value)
                .IsRequired ();
 
+        builder.Property (p => p.LocalId)
+               .HasMaxLength (250);
+
         builder.Property (p => p.Name)
                .HasMaxLength (50)
                .IsRequired ();

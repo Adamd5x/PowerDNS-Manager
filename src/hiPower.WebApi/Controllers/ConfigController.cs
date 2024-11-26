@@ -17,7 +17,8 @@ namespace hiPower.WebApi.Controllers
             ConfigItem[] endpoints = [
                 new ConfigItem(EndpointType.Servers, "api/servers"),
                 new ConfigItem(EndpointType.Zones, "api/zones"),
-                new ConfigItem(EndpointType.Identity, "api/auth")
+                new ConfigItem(EndpointType.Identity, "api/auth"),
+                new ConfigItem(EndpointType.Locations, "api/locations"),
             ];
 
             return Ok (new ApiResult<IEnumerable<ConfigItem>>(true, endpoints));
