@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using hiPower.Abstracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace hiPower.WebApi.Controllers
 {
     [Route ("api/locations")]
     [ApiController]
     [Produces (MediaTypeNames.Application.Json)]
-    public class LocationController : ControllerBase
+    public class LocationController(ILocationService locationService) : ControllerBase
     {
-
-        private readonly Location testLocation = new Location("c83ba0fe-abbe-11ef-bee0-edb790a320a9", "Hq","Address","City","ZIP","Region","Poland","Virtual location for testing");
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type= typeof (ApiResult<IEnumerable<Location>>))]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var newLocation = testLocation with { Name = "Home"};
+            var result = await locationService.GetAsync();
 
-            var response = new ApiResult<IEnumerable<Location>>(true, [newLocation]);
+            if (result.IsError) 
+            { 
+                return BadRequest(new ApiResult<IEnumerable<Location>> (false, []));
+            }
 
+            var response = new ApiResult<IEnumerable<Location>>(true, result.Value);
             return Ok (response);
         }
 
@@ -26,55 +28,91 @@ namespace hiPower.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(ApiResult<Location>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
-        public IActionResult Get ([FromRoute] string id)
+        public async Task<IActionResult> Get ([FromRoute] string id)
         {
-            var result = new ApiResult<Location>(true, testLocation);
-            return Ok (result);
+            var result = await locationService.GetAsync(id);
+
+            if (result.IsError) 
+            { 
+                return BadRequest(new ProblemDetails () { Status = StatusCodes.Status400BadRequest });
+            }
+            return Ok (new ApiResult<Location> (true, result.Value));
         }
 
         [HttpGet ("{id}/servers")]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
-        public IActionResult GetServers ([FromRoute] string id)
+        public async Task<IActionResult> GetServers ([FromRoute] string id)
         {
-            IEnumerable<Server> serverList = [
-                new Server("c97506f5-abc1-11ef-b546-7ae5db898729", "c83ba0fe-abbe-11ef-bee0-edb790a320a9", "Master 001", CommunicationProto.HTTP, "dnsserver", 53, "abd79ec4-abc2-11ef-84de-64cd2e0dafcf", "b3c9bf7b-abc2-11ef-bbff-a71551192595")
-            ];
+            var result = await locationService.GetServers (id);
 
-            var result = new ApiResult<IEnumerable<Server>>(true, serverList);
-            return Ok (result);
+            if (result.IsError)
+            {
+                return BadRequest (new ProblemDetails
+                {
+                    Status = StatusCodes.Status400BadRequest
+                });
+            }
+
+            var response = new ApiResult<IEnumerable<Server>>(true, result.Value);
+            return Ok (response);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<Location>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        public IActionResult Create ([FromBody] Location location)
+        public async Task<IActionResult> Create ([FromBody] Location location)
         {
-            var result = new ApiResult<Location>(true, testLocation);
+            var result = await locationService.CreateAsync (location);
 
-            return Created(string.Empty, result);
+            if (result.IsError)
+            {
+                return BadRequest (new ProblemDetails
+                {
+                    Status = StatusCodes.Status400BadRequest
+                });
+            }
+
+            var response = new ApiResult<Location>(true, result.Value);
+
+            return Created(string.Empty, response);
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<bool>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<Location>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        public IActionResult Update ([FromRoute] string id, [FromBody] Location location)
+        public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] Location location)
         {
+            var result = await locationService.UpdateAsync(id, location);
+            if (result.IsError)
+            {
+                return BadRequest (new ProblemDetails
+                {
+                    Status = StatusCodes.Status400BadRequest
+                });
+            }
 
-            var result = new ApiResult<bool>(true, true);
-
-            return Ok (result);
+            var response = new ApiResult<Location>(true, result.Value);
+            return Ok (response);
         }
 
         [HttpDelete ("id")]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<bool>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
-        public IActionResult Delete ([FromRoute] string id) 
+        public async Task<IActionResult> Delete ([FromRoute] string id) 
         {
-            var result = new ApiResult<bool>(true, true);
-            return Ok (result);
+            var result = await locationService.DeleteAsync (id);
+            if (result.IsError)
+            {
+                return BadRequest (new ProblemDetails ()
+                {
+                    Status = StatusCodes.Status400BadRequest
+                });
+            }
+            var response = new ApiResult<bool>(true, result.Value);
+            return Ok (response);
         }
     }
 }

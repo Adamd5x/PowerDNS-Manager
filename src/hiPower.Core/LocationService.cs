@@ -1,6 +1,4 @@
-﻿using ErrorOr;
-using hiPower.Abstracts;
-using hiPower.Dto.Manager;
+﻿using hiPower.Abstracts;
 
 namespace hiPower.Core;
 
@@ -11,7 +9,7 @@ public class LocationService(IUnitOfWork unit) : ILocationService
         throw new NotImplementedException ();
     }
 
-    public Task<ErrorOr<Location>> DeleteAsync (string id)
+    public Task<ErrorOr<bool>> DeleteAsync (string id)
     {
         throw new NotImplementedException ();
     }
@@ -26,7 +24,12 @@ public class LocationService(IUnitOfWork unit) : ILocationService
         throw new NotImplementedException ();
     }
 
-    public Task<ErrorOr<Location>> UpdateAsync (Location location)
+    public Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetServers (string id)
+    {
+        throw new NotImplementedException ();
+    }
+
+    public Task<ErrorOr<Location>> UpdateAsync (string id, Location location)
     {
         throw new NotImplementedException ();
     }
