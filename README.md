@@ -28,6 +28,6 @@
 - Power DNS
 
 ## License info
-- [Angular] (https://angular/dev/license) - License: MIT-style License
+- [Angular](https://angular/dev/license) - License: MIT-style License
 - [Angular Material](https://material.angular.io/) - License: MIT-style License
 - [RxJS](https://rxjs.dev) - License: Apache-2.0 License
