@@ -7,14 +7,11 @@ namespace hiPower.WebApi.Controllers
     [Produces (MediaTypeNames.Application.Json)]
     public class ServersController : ControllerBase
     {
-
-        private readonly Server testServer = new Server("c97506f5-abc1-11ef-b546-7ae5db898729", "c83ba0fe-abbe-11ef-bee0-edb790a320a9", "Master 001", CommunicationProto.HTTP, "dnsserver", 18081, "abd79ec4-abc2-11ef-84de-64cd2e0dafcf", "b3c9bf7b-abc2-11ef-bbff-a71551192595");
-
         [HttpGet]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
         public IActionResult GetAll ()
         {
-            var response = new ApiResult<IEnumerable<Server>>(true, [testServer]);
+            var response = new ApiResult<IEnumerable<Server>>(true, []);
 
             return Ok (response);
         }
@@ -26,7 +23,7 @@ namespace hiPower.WebApi.Controllers
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
         public IActionResult Get ([FromRoute] string id)
         {
-            var result = new ApiResult<Server>(true, testServer);
+            var result = new ApiResult<Server>(true, new Server());
             return Ok (result);
         }
 

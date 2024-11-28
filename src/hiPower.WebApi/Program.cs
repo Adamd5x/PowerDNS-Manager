@@ -23,6 +23,7 @@ if (app.Environment.IsDevelopment ())
     app.UseSwaggerUI ();
 }
 
+app.UseCorsServices ();
 app.UseHttpsRedirection ();
 
 app.UseExceptionHandler(_ => { });

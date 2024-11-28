@@ -16,7 +16,9 @@ public static class WebHostServiceExtension
         .AddJsonOptions(options => { 
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter ());
             options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-        })  ;
+        });
+
+        services.ConfigureProblemDetails ();
 
         services.AddEndpointsApiExplorer ();
         services.AddSwaggerGen ();
@@ -28,5 +30,19 @@ public static class WebHostServiceExtension
         return services;
     }
 
+    public static IServiceCollection ConfigureProblemDetails(this IServiceCollection services)
+    {
+
+        services.AddProblemDetails (problem =>
+        {
+            problem.CustomizeProblemDetails = context =>
+            {
+                context.ProblemDetails.Title = "Error";
+                context.ProblemDetails.Instance = "hiPower Web Api";
+            };
+        });
+
+        return services;
+    }
 
 }

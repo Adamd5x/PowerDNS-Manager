@@ -1,0 +1,1 @@
+export type LicenseType = 'community' | 'pro' | 'temporary' | 'dev' | undefined;

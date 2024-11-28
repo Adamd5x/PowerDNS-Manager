@@ -1,0 +1,47 @@
+<div class="container">    
+    <div class="formContainer">
+        <div class="info">
+            <h2>Welcome Back!</h2>
+            <p>To keep manage your PowerDNS server please login with your personal information</p>
+            <button mat-flat-button color="primary">Sign In</button>
+        </div>
+        <div class="loginForm">
+            <img src="../../../../assets/PowerDNS-2.png" alt="Power DNS">
+            <h2>Create Account</h2>
+            <div>
+                <form [formGroup]="form">
+                    <mat-form-field appearance="outline"
+                                    class="custom-placeholder">
+                        <mat-label>User name</mat-label>
+                        <input matInput
+                               placeholder="User name"
+                               formControlName="userName"
+                               #userName>
+                        <mat-hint  align="end">{{ userName.value.length }} / 50</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline"
+                                    class="custom-placeholder">
+                        <mat-label>Password</mat-label>
+                        <input matInput
+                               placeholder="Password"
+                               formControlName="pwd"
+                               #pwd>
+                        <mat-hint align="end">{{ pwd.value.length}} / 150</mat-hint>
+                    </mat-form-field>
+                </form>
+                <div class="actions">
+                    <button mat-flat-button
+                            color="secondary"
+                            aria-label="Click to register"
+                            (click)="onLogin()">Register new user</button>
+                    <button mat-flat-button
+                            color="secondary"
+                            aria-label="Click to reset register form"
+                            (click)="form.reset()">
+                            Clear form
+                    </button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>

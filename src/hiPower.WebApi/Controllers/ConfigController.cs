@@ -1,27 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using hiPower.Common.Type;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace hiPower.WebApi.Controllers
 {
     [Route ("api/config")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
-    public class ConfigController : ControllerBase
+    [AllowAnonymous]
+    public class ConfigController(IConfiguration configuration) : ControllerBase
     {
+        private readonly string licenseToken = configuration?.GetValue<string>("LicenseToken") ?? string.Empty;
+        private readonly string userToken = configuration?.GetValue<string>("UserToken") ?? string.Empty;
+
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<IEnumerable<ConfigItem>>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<StartupApp>))]
         public IActionResult GetConfig()
         {
-
-            ConfigItem[] endpoints = [
-                new ConfigItem(EndpointType.Servers, "api/servers"),
-                new ConfigItem(EndpointType.Zones, "api/zones"),
-                new ConfigItem(EndpointType.Identity, "api/auth"),
-                new ConfigItem(EndpointType.Locations, "api/locations"),
+            
+            EndpointItem[] endpoints = [
+                new EndpointItem(EndpointType.Servers, "api/servers"),
+                new EndpointItem(EndpointType.Zones, "api/zones"),
+                new EndpointItem(EndpointType.Identity, "api/auth"),
+                new EndpointItem(EndpointType.Locations, "api/locations"),
             ];
 
-            return Ok (new ApiResult<IEnumerable<ConfigItem>>(true, endpoints));
+            var startup = new StartupApp(licenseToken, userToken, 6000, endpoints);
+            Thread.Sleep (1000);
+            return Ok (new ApiResult<StartupApp> (true, startup));
         }
     }
 }
