@@ -20,13 +20,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  signIn(userName: string, password: string) {
+  signIn(userName: string, password: string): Observable<void> {
     return this.http.post<ApiResponse<AppUser>>(`${environment.apiUrl}/api/auth`, {
       userName: userName,
       password: password
     }).pipe(
       filter((i:ApiResponse<AppUser>) => i.success),
-      map((i: ApiResponse<AppUser>) => this.subject.next(i.data as AppUser)),
+      map((i: ApiResponse<AppUser>) => {
+        const user = i.data as AppUser;
+        sessionStorage.setItem("account", JSON.stringify(user));
+        this.subject.next(user)
+      }),
     );
   }
 }

@@ -1,0 +1,28 @@
+
+<mat-toolbar>
+   <button mat-icon-button aria-label="Menu on/off" (click)="openClose()"><mat-icon>menu</mat-icon></button><span>Power DNS Manager v0.8</span>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+  <mat-drawer class="mat-elevation-z8" mode="side" [opened]="isOpen">
+    <div class="drawer-container">
+      <button mat-raised-button routerLink="/"><mat-icon>dashboard</mat-icon>Dashboard</button>
+      <mat-divider></mat-divider>
+      <button mat-raised-button routerLink="/"><mat-icon>share</mat-icon>Zones</button>      
+      <button mat-raised-button routerLink="/"><mat-icon>visibility</mat-icon>State</button>
+      <button mat-raised-button routerLink="/"><mat-icon>computer</mat-icon>Servers</button>
+      <button mat-raised-button routerLink="/"><mat-icon>map</mat-icon>Location</button>
+      <button mat-raised-button routerLink="/"><mat-icon>fingerprint</mat-icon>Templates</button>
+      <mat-divider></mat-divider>      
+      <button mat-raised-button routerLink="/"><mat-icon>people</mat-icon>Users</button>
+    </div>    
+    <div class="author">
+      2024 - Adam Debowski
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

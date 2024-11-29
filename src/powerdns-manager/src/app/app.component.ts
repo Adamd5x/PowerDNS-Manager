@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   // isLoggedIn$: Observable<boolean> = EMPTY;
   // isLoggedOut$: Observable<boolean> = EMPTY;
 
-  title = 'powerdns-manager';
+  title = 'Power DNS - Manager v0.6';
 
   constructor(){}
 

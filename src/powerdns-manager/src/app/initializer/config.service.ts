@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { StartUpConfig } from '@shared/models/startup-config';
 import { ApiResponse } from '@shared/models/api-response';
 import { EMPTY_STARTUP } from '@shared/models/empty-config';
+
+import { EndpointType } from '@shared/types/endpoint-type';
 import { Endpoint } from '@shared/models/endpoint';
 
 const startupConfigStorageKey = 'startup';
@@ -36,6 +38,15 @@ export class ConfigService {
     return this.config;
   }
 
+  getEndpoint(type: EndpointType): string {
+    const endpoints = this.getEndpoints();
+    const found = endpoints[type];
+
+    console.log(`Endpoint url: ${environment.apiUrl}/${found?.url}`);
+    
+    return found?.url;
+  }
+
   private storeConfig(data: StartUpConfig): void {
     sessionStorage.setItem(startupConfigStorageKey, JSON.stringify(data));
   }
@@ -50,7 +61,15 @@ export class ConfigService {
     return EMPTY_STARTUP;
   }
 
-  private getEndpoints(data: StartUpConfig): Endpoint[] {
-    return data.endpoints as Endpoint[];
+  private getEndpoints(): Record<string, Endpoint> {
+    const data: Endpoint[] = this.restoreConfig().endpoints as Endpoint[]; 
+
+    const endpointRecord = data.reduce<Record<string, Endpoint>>((item, endpoint) => {
+      item[endpoint.endpointType]=endpoint;
+      return item;
+    }, {} );
+
+    console.log(endpointRecord);    
+    return endpointRecord;
   }
 }

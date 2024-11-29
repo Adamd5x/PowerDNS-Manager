@@ -25,7 +25,7 @@ namespace hiPower.WebApi.Controllers
             ];
 
             var startup = new StartupApp(licenseToken, userToken, 6000, endpoints);
-            Thread.Sleep (1000);
+
             return Ok (new ApiResult<StartupApp> (true, startup));
         }
     }

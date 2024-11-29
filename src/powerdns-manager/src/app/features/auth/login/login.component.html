@@ -1,13 +1,13 @@
 <div class="container">    
     <div class="formContainer">
         <div class="info">
-            <h2>Welcome Back!</h2>
-            <p>To keep manage your PowerDNS server please login with your personal information</p>
-            <button mat-flat-button color="primary">Sign In</button>
+            <h2>Create Account</h2>
+            <p>To keep manage your PowerDNS server please creat you account</p>
+            <button mat-flat-button color="primary">Create account</button>
         </div>
         <div class="loginForm">
             <img src="../../../../assets/PowerDNS-2.png" alt="Power DNS">
-            <h2>Create Account</h2>
+            <h2>Welcome Back!</h2>            
             <div>
                 <form [formGroup]="form">
                     <mat-form-field appearance="outline"
@@ -25,6 +25,7 @@
                         <input matInput
                                placeholder="Password"
                                formControlName="pwd"
+                               type="password"
                                #pwd>
                         <mat-hint align="end">{{ pwd.value.length}} / 150</mat-hint>
                     </mat-form-field>
@@ -33,13 +34,7 @@
                     <button mat-flat-button
                             color="secondary"
                             aria-label="Click to register"
-                            (click)="onLogin()">Register new user</button>
-                    <button mat-flat-button
-                            color="secondary"
-                            aria-label="Click to reset register form"
-                            (click)="form.reset()">
-                            Clear form
-                    </button>
+                            (click)="onLogin()">Sign In</button>
                 </div>                
             </div>
         </div>

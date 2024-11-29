@@ -27,4 +27,4 @@ import { ManagerErrorHandler } from './handlers/manager-error-handler';
             useClass: ManagerErrorHandler
         }]
 })
-export class ShareModule {}
+export class SharedModule {}
