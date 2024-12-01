@@ -3,8 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace hiPower.Database.Seeder
 {
-    public class ManagerDbSeeder(ManagerDbContext context, ILogger<ManagerDbSeeder> logger)
+    public class ManagerDbSeeder(DbContextOptions<ManagerDbContext> options, ILogger<ManagerDbSeeder> logger)
     {
+        private readonly ManagerDbContext context = new(options);
         public async Task MigrateDbAsync()
         {
             await context.Database.EnsureCreatedAsync();

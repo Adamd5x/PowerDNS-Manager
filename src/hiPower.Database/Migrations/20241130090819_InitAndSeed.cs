@@ -5,7 +5,7 @@
 namespace hiPower.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class InitAndSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +14,7 @@ namespace hiPower.Database.Migrations
                 name: "T_ServerLocation",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
                     Address = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
@@ -32,8 +32,9 @@ namespace hiPower.Database.Migrations
                 name: "T_Server",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    LocalId = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
                     Proto = table.Column<string>(type: "character varying(10)", maxLength: 10, precision: 0, scale: 5, nullable: false),
                     HostAddress = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     Port = table.Column<string>(type: "text", nullable: true),
@@ -46,7 +47,7 @@ namespace hiPower.Database.Migrations
                     State = table.Column<int>(type: "integer", precision: 0, scale: 3, nullable: false),
                     Timeout = table.Column<int>(type: "integer", precision: 0, scale: 5, nullable: false),
                     Retries = table.Column<int>(type: "integer", precision: 0, scale: 2, nullable: false),
-                    LocationId = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false)
+                    LocationId = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,6 +58,11 @@ namespace hiPower.Database.Migrations
                         principalTable: "T_ServerLocation",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.InsertData(
+                table: "T_ServerLocation",
+                columns: new[] { "Id", "Address", "City", "Country", "Description", "Name", "PostalCode", "Region" },
+                values: new object[] { "7EB5999F-AEF5-11EF-9FD9-47F022E22A50", "", "", "Default", "Initial location", "Default", "", "" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_T_Server_LocationId",

@@ -46,5 +46,20 @@ internal class ServerLocationEntityConfiguration : IEntityTypeConfiguration<Serv
                .WithOne(y => y.Location)
                .HasForeignKey(x => x.LocationId)
                .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasData (DefaultLocation);
     }
+
+    private IEnumerable<ServerLocation> DefaultLocation => [
+        new (){
+                Id = "7eb5999f-aef5-11ef-9fd9-47f022e22a50",
+                Name = "Default",
+                Description = "Initial location",
+                Address = "",
+                City = "",
+                PostalCode = "",
+                Region = "",
+                Country = "Default",
+            }
+        ];
 }

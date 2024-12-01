@@ -1,0 +1,1 @@
+export type UserRole = 'anonymous' | 'none' | 'administrator' | 'user'

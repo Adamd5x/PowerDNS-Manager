@@ -11,8 +11,8 @@ using hiPower.Database;
 namespace hiPower.Database.Migrations
 {
     [DbContext(typeof(ManagerDbContext))]
-    [Migration("20241126070759_AddLocalId")]
-    partial class AddLocalId
+    [Migration("20241130090819_InitAndSeed")]
+    partial class InitAndSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,8 @@ namespace hiPower.Database.Migrations
             modelBuilder.Entity("hiPower.Entity.Server", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
 
                     b.Property<string>("ApiKey")
                         .HasMaxLength(250)
@@ -56,8 +56,8 @@ namespace hiPower.Database.Migrations
 
                     b.Property<string>("LocationId")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -103,8 +103,8 @@ namespace hiPower.Database.Migrations
             modelBuilder.Entity("hiPower.Entity.ServerLocation", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
 
                     b.Property<string>("Address")
                         .HasMaxLength(150)
@@ -140,6 +140,19 @@ namespace hiPower.Database.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("T_ServerLocation", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7EB5999F-AEF5-11EF-9FD9-47F022E22A50",
+                            Address = "",
+                            City = "",
+                            Country = "Default",
+                            Description = "Initial location",
+                            Name = "Default",
+                            PostalCode = "",
+                            Region = ""
+                        });
                 });
 
             modelBuilder.Entity("hiPower.Entity.Server", b =>

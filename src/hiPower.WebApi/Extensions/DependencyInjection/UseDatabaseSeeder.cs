@@ -10,7 +10,7 @@ namespace hiPower.WebApi.Extensions.DependencyInjection
             if (scopeFactory is not null)
             {
                 using var scope = scopeFactory.CreateScope();
-                var dbSeeder = scope.ServiceProvider.GetService<ManagerDbSeeder>();
+                var dbSeeder = scope.ServiceProvider.GetRequiredService<ManagerDbSeeder>();
                 if (dbSeeder is not null)
                 {
                     await dbSeeder.MigrateDbAsync ();

@@ -1,3 +1,5 @@
+@import '../../../../styles/utils/variables';
+
 :host {
 
     button {
@@ -6,11 +8,11 @@
     }
 
     mat-toolbar {
-        background-color: #004a9f;
-        color: black;
+        background-color: $color-blue-navy;
+        color: $color-black;
 
         span {
-            color: silver;
+            color: $color-gray;
         }
     }
 
@@ -18,33 +20,28 @@
         margin: 1.2rem;
         width: 15rem;
         border-right: none;
-        background-color: black;
-        color: bisque;
+        background-color: $color-black;
+        color: $color-white;
         border-radius: 1rem;
         padding: 1rem;
         text-align: center;
-        box-shadow:
-        0 1px 1px hsl(0deg 0% 0% / 0.075),
-        0 2px 2px hsl(0deg 0% 0% / 0.075),
-        0 4px 4px hsl(0deg 0% 0% / 0.075),
-        0 8px 8px hsl(0deg 0% 0% / 0.075),
-        0 16px 16px hsl(0deg 0% 0% / 0.075);        
+        box-shadow: $border-shadow;
 
         .drawer-container {
             height: calc(100% - 26px);
             justify-content: left;
 
             mat-divider {
-                margin: .5rem 0;                
+                margin: .5rem 0;
             }
 
             button {
                 width: 90%;
                 justify-content: start;
-                color: bisque;
+                color: $color-white;
 
                 &:hover {
-                    color: red;
+                    color: $color-orange;
                 }
             }
         }
@@ -56,8 +53,8 @@
     }
 
     mat-drawer-content {
-        background-color: white;
-        color: #2E22E4;
+        background-color: $color-gray-light;
+        color: $color-blue;
 
         .content {
             height: calc(100vh - 98px);
@@ -66,16 +63,11 @@
             display: flex;
             justify-content: center;
             font-size: 2rem;
-            color: #2E22E4;
+            color: $color-blue;
             border-radius: 1rem;
-            background-color: #EFEFEF;
+            background-color: $color-gray-light;
             border: solid .5px silver;
-            box-shadow:
-            0 1px 1px hsl(0deg 0% 0% / 0.075),
-            0 2px 2px hsl(0deg 0% 0% / 0.075),
-            0 4px 4px hsl(0deg 0% 0% / 0.075),
-            0 8px 8px hsl(0deg 0% 0% / 0.075),
-            0 16px 16px hsl(0deg 0% 0% / 0.075);            
+            box-shadow: $border-shadow;      
         }
     }
 
@@ -84,6 +76,6 @@
     }
 
     .mat-drawer-container {
-        background-color: transparent;
+        background-color: $color-gray-light;
     }
 }

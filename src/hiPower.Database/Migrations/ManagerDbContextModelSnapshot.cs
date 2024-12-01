@@ -137,6 +137,19 @@ namespace hiPower.Database.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("T_ServerLocation", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7EB5999F-AEF5-11EF-9FD9-47F022E22A50",
+                            Address = "",
+                            City = "",
+                            Country = "Default",
+                            Description = "Initial location",
+                            Name = "Default",
+                            PostalCode = "",
+                            Region = ""
+                        });
                 });
 
             modelBuilder.Entity("hiPower.Entity.Server", b =>
