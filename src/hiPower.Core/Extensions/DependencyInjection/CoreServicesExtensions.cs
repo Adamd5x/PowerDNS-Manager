@@ -9,7 +9,7 @@ public static class CoreServicesExtensions
 {
     public static IServiceCollection ConfigureCoreServices(this IServiceCollection services)
     {
-        services.AddScoped<ILocationService, LocationService> ();
+        services.AddScoped<IDataCenterService, DataCenterService> ();
 
         services.ConfigureMapster ();
 

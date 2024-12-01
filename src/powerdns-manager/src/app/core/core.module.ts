@@ -1,13 +1,15 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
-        NgModule,
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule
     ],
     exports: [
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule
     ]
 })
 export class CoreModule{}

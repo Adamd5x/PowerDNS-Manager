@@ -21,7 +21,7 @@ namespace hiPower.WebApi.Controllers
                 new EndpointItem(EndpointType.Servers, "api/servers"),
                 new EndpointItem(EndpointType.Zones, "api/zones"),
                 new EndpointItem(EndpointType.Identity, "api/auth"),
-                new EndpointItem(EndpointType.Locations, "api/locations"),
+                new EndpointItem(EndpointType.DataCenters, "api/datacenters"),
             ];
 
             var startup = new StartupApp(licenseToken, userToken, 6000, endpoints);

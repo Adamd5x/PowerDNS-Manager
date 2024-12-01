@@ -10,7 +10,6 @@ import { AuthService } from './services/auth.service';
 import { startupInitializer } from './initializer/initializerFactory';
 import { ConfigService } from './initializer/config.service';
 
-
 @NgModule({
   declarations: [
     AppComponent

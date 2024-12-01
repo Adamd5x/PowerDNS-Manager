@@ -5,5 +5,5 @@ public enum EndpointType
     Servers,
     Zones,
     Identity,
-    Locations
+    DataCenters
 }

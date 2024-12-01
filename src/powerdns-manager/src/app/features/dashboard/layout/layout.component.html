@@ -6,13 +6,13 @@
 <mat-drawer-container autosize>
   <mat-drawer class="mat-elevation-z8" mode="side" [opened]="isOpen">
     <div class="drawer-container">
-      <button mat-raised-button routerLink="/"><mat-icon>dashboard</mat-icon>Dashboard</button>
+      <button mat-raised-button routerLink="/" ><mat-icon>dashboard</mat-icon>Dashboard</button>
       <mat-divider></mat-divider>
-      <button mat-raised-button routerLink="/"><mat-icon>share</mat-icon>Zones</button>      
-      <button mat-raised-button routerLink="/"><mat-icon>visibility</mat-icon>State</button>
-      <button mat-raised-button routerLink="/"><mat-icon>computer</mat-icon>Servers</button>
-      <button mat-raised-button routerLink="/"><mat-icon>map</mat-icon>Location</button>
-      <button mat-raised-button routerLink="/"><mat-icon>fingerprint</mat-icon>Templates</button>
+      <button mat-raised-button routerLink="zones"><mat-icon>share</mat-icon>Zones</button>      
+      <button mat-raised-button routerLink="state"><mat-icon>visibility</mat-icon>State</button>
+      <button mat-raised-button routerLink="servers"><mat-icon>computer</mat-icon>Servers</button>
+      <button mat-raised-button routerLink="datacenters"><mat-icon>map</mat-icon>Data centers</button>
+      <button mat-raised-button routerLink="templates"><mat-icon>fingerprint</mat-icon>Templates</button>
       <mat-divider></mat-divider>      
       <button mat-raised-button routerLink="/"><mat-icon>people</mat-icon>Users</button>
     </div>    
@@ -22,7 +22,9 @@
   </mat-drawer>
   <mat-drawer-content>
     <div class="content">
-      <router-outlet></router-outlet>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

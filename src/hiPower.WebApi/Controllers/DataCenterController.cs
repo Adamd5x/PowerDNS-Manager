@@ -3,29 +3,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace hiPower.WebApi.Controllers
 {
-    [Route ("api/locations")]
+    [Route ("api/datacenters")]
     [ApiController]
     [Produces (MediaTypeNames.Application.Json)]
-    public class LocationController(ILocationService locationService) : ControllerBase
+    public class DataCenterController(IDataCenterService locationService) : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type= typeof (ApiResult<IEnumerable<Location>>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type= typeof (ApiResult<IEnumerable<DataCenter>>))]
         public async Task<IActionResult> GetAll()
         {
             var result = await locationService.GetAsync();
 
             if (result.IsError) 
             { 
-                return BadRequest(new ApiResult<IEnumerable<Location>> (false, []));
+                return BadRequest(new ApiResult<IEnumerable<DataCenter>> (false, []));
             }
 
-            var response = new ApiResult<IEnumerable<Location>>(true, result.Value);
+            var response = new ApiResult<IEnumerable<DataCenter>>(true, result.Value);
             return Ok (response);
         }
 
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(ApiResult<Location>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
         public async Task<IActionResult> Get ([FromRoute] string id)
@@ -36,7 +36,7 @@ namespace hiPower.WebApi.Controllers
             { 
                 return BadRequest(new ProblemDetails () { Status = StatusCodes.Status400BadRequest });
             }
-            return Ok (new ApiResult<Location> (true, result.Value));
+            return Ok (new ApiResult<DataCenter> (true, result.Value));
         }
 
         [HttpGet ("{id}/servers")]
@@ -60,9 +60,9 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<Location>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        public async Task<IActionResult> Create ([FromBody] Location location)
+        public async Task<IActionResult> Create ([FromBody] DataCenter location)
         {
             var result = await locationService.CreateAsync (location);
 
@@ -74,15 +74,15 @@ namespace hiPower.WebApi.Controllers
                 });
             }
             var temp = result.Value;
-            var response = new ApiResult<Location>(true, temp);
+            var response = new ApiResult<DataCenter>(true, temp);
 
             return Created(string.Empty, response);
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<Location>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] Location location)
+        public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] DataCenter location)
         {
             var result = await locationService.UpdateAsync(id, location);
             if (result.IsError)
@@ -93,7 +93,7 @@ namespace hiPower.WebApi.Controllers
                 });
             }
 
-            var response = new ApiResult<Location>(true, result.Value);
+            var response = new ApiResult<DataCenter>(true, result.Value);
             return Ok (response);
         }
 

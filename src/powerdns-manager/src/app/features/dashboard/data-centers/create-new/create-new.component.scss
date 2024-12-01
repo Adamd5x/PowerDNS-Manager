@@ -1,0 +1,16 @@
+@import '/src/styles/utils/variables';
+
+:host {
+    align-items: start;
+    width: 60ch;
+
+
+
+    mat-card-content {
+        width: 100%;
+
+        mat-form-filed {
+            width: 100%;
+        }        
+    }
+}

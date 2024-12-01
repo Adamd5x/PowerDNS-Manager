@@ -2,3 +2,12 @@
 @import './utils/variables';
 
 
+mat-card {
+    background-color:  $color-gray !important;
+
+    mat-card-header {
+        padding-bottom: 1rem !important;
+        margin-bottom: 1rem !important;
+        border-bottom: solid 1px $color-blue-navy !important;
+    }
+}

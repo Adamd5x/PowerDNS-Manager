@@ -1,1 +1,1 @@
-export type EndpointType = 'Servers' | 'Zones' | 'Identity' | 'Locations'
+export type EndpointType = 'Servers' | 'Zones' | 'Identity' | 'DataCenters'

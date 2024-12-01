@@ -1,6 +1,6 @@
 ﻿namespace hiPower.Dto.Manager;
 
-public class Location 
+public class DataCenter 
 { 
     public string Id { get; set; }
     public string Name { get; set; }

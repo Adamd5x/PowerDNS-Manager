@@ -3,14 +3,14 @@ using MapsterMapper;
 
 namespace hiPower.Core;
 
-public class LocationService(IUnitOfWork unit,
-                             IMapper mapper) : ILocationService
+public class DataCenterService(IUnitOfWork unit,
+                             IMapper mapper) : IDataCenterService
 {
-    public async Task<ErrorOr<Location>> CreateAsync (Location location)
+    public async Task<ErrorOr<DataCenter>> CreateAsync (DataCenter location)
     {
         var result = await unit.LocationRepository.CreateAsync(location.Adapt<ServerLocation>());
         await unit.SaveAsync ();
-        return mapper.Map<Location> (result);
+        return mapper.Map<DataCenter> (result);
     }
 
     public async Task<ErrorOr<bool>> DeleteAsync (string id)
@@ -19,16 +19,16 @@ public class LocationService(IUnitOfWork unit,
         return true;
     }
 
-    public async Task<ErrorOr<Location>> GetAsync (string id)
+    public async Task<ErrorOr<DataCenter>> GetAsync (string id)
     {
         var result = await unit.LocationRepository.GetAsync(x => x.Id.Equals(id.ToUpperInvariant()), null);
-        return result.Adapt<Location> ();
+        return result.Adapt<DataCenter> ();
     }
 
-    public async Task<ErrorOr<IEnumerable<Location>>> GetAsync ()
+    public async Task<ErrorOr<IEnumerable<DataCenter>>> GetAsync ()
     {
         var result = await unit.LocationRepository.GetAll(null, null,null);
-        return result.Adapt<IEnumerable<Location>> ().ToErrorOr ();
+        return result.Adapt<IEnumerable<DataCenter>> ().ToErrorOr ();
     }
 
     public Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetServers (string id)
@@ -36,16 +36,16 @@ public class LocationService(IUnitOfWork unit,
         throw new NotImplementedException ();
     }
 
-    public async Task<ErrorOr<Location>> UpdateAsync (string id, Location location)
+    public async Task<ErrorOr<DataCenter>> UpdateAsync (string id, DataCenter dataCenter)
     {
-        if (!id.Equals(location.Id, StringComparison.OrdinalIgnoreCase))
+        if (!id.Equals(dataCenter.Id, StringComparison.OrdinalIgnoreCase))
         {
-            return Error.NotFound (location.Id);
+            return Error.NotFound (dataCenter.Id);
         }
         var result = unit.LocationRepository
-                         .Update(location.Adapt<ServerLocation>())
+                         .Update(dataCenter.Adapt<ServerLocation>())
                          .ToErrorOr();
 
-        return await Task.FromResult(result.Adapt<Location> ());
+        return await Task.FromResult(result.Adapt<DataCenter> ());
     }
 }

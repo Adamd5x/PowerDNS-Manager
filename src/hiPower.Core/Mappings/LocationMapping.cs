@@ -4,7 +4,7 @@ internal class LocationMapping : IRegister
 {
     public void Register (TypeAdapterConfig config)
     {
-        config.NewConfig<Location, ServerLocation>()
+        config.NewConfig<DataCenter, ServerLocation>()
               .Map(dest => dest.Id, src => src.Id)
               .Map(dest => dest.Name, src => src.Name)
               .Map(dest => dest.Address, src => src.Address)
@@ -13,7 +13,7 @@ internal class LocationMapping : IRegister
               .Map(dest => dest.Region, src => src.Region)
               .Map(dest => dest.Country, src => src.Country);
 
-        config.NewConfig<ServerLocation, Location> ()
+        config.NewConfig<ServerLocation, DataCenter> ()
               .Map (dest => dest.Id, src => src.Id)
               .Map (dest => dest.Name, src => src.Name)
               .Map (dest => dest.Address, src => src.Address)
