@@ -2,15 +2,17 @@
 
 :host {
     align-items: start;
-    width: 60ch;
-
-
+    width: 50%;
 
     mat-card-content {
         width: 100%;
 
         mat-form-filed {
             width: 100%;
-        }        
+        }
+
+        mat-form-field {
+            width: 100%;
+        }
     }
 }

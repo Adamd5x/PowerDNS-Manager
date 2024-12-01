@@ -1,17 +1,74 @@
 <mat-card>
-    <mat-card-content [formGroup]="form">
+    <mat-card-header>
+        Create a new data center
+    </mat-card-header>
+    <mat-card-content>
         <form [formGroup]="form">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input matInput
-                       controlFormName="name"
+                       formControlName="name"
                        placeholder="Name"
                        #name>
                 <mat-hint align="end">{{ name.value.length }} /  50</mat-hint>
             </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+                <input matInput
+                       formControlName="address"
+                       placeholder="Address"
+                       #address/>
+                <mat-hint align="end">{{ address.value.length }} / 150</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput
+                       formControlName="city"
+                       placeholder="City"
+                       #city>
+                <mat-hint align="end">{{ city.value.length}} / 100</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Postal code</mat-label>
+                <input matInput
+                       formControlName="postalCode"
+                       placeholder="Postal code"
+                       #postalCode>
+                <mat-hint align="end">{{ postalCode.value.length}} / 20</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Region</mat-label>
+                <input matInput
+                       formControlName="region"
+                       placeholder="Region"
+                       #region>
+                <mat-hint align="end">{{ region.value.length }} / 50</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                <input matInput 
+                       formControlName="country"
+                       placeholder="Country"
+                       #country>
+                <mat-hint align="end">{{ country.value.length }} / 100</mat-hint>
+            </mat-form-field>
+
         </form>
     </mat-card-content>
-    <mat-card-actions>
-
+    <mat-card-actions align="end">
+        <button mat-raised-button
+                type="button"
+                aria-label="Back to list button"
+                routerLink=".."><mat-icon>chevron_left</mat-icon>Back</button>            
+        <button mat-raised-button
+                color="primary"
+                type="button"
+                aria-label="Create new data center"
+                (click)="onSubmit()"><mat-icon>save</mat-icon>Create</button>
+        <button mat-raised-button
+                color="secondary"
+                type="button"
+                aria-label="Reset form"
+                (click)="form.reset()"><mat-icon>delete_forever</mat-icon>Clear form</button>
     </mat-card-actions>
 </mat-card>

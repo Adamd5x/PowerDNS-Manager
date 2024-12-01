@@ -36,4 +36,11 @@ export class DataCenterService extends DataService {
                   map(x => x.data as DataCenter)
                  );
    }
+
+   createDataCenter(dataCenter: DataCenter): Observable<DataCenter> {
+      return this.post<DataCenter>(`${this.apiUrl}`, dataCenter)
+                 .pipe(
+                  map(x => x as DataCenter)
+                 );
+   }
 }
