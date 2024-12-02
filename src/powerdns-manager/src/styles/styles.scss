@@ -2,17 +2,16 @@
 @import './utils/variables';
 
 
-mat-card {
-    background-color:  $color-gray !important;
-
+mat-card {    
     mat-card-header {
         padding-bottom: 1rem !important;
         margin-bottom: 1rem !important;
-        border-bottom: solid 1px $color-blue-navy !important;
+        border-bottom: solid 1px $color-gray !important;
+        color: $color-gray;
     }
 
     mat-card-actions  {
-        border-top: solid 1px $color-blue-navy;
+        border-top: solid 1px $color-gray;
 
         button {
             margin-left: 1rem;
@@ -22,5 +21,9 @@ mat-card {
             margin-right: .8rem;
         }
 
+    }
+
+    mat-hint {
+        color: $color-gray;
     }
 }

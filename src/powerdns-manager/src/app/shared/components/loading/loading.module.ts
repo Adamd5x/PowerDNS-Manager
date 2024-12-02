@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from '@angular/platform-browser';
+import { CoreModule } from "@core/core.module";
 
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
@@ -12,7 +12,7 @@ import { LoadingService } from "./loading.service";
     ],
     imports: [
         MatProgressSpinner,
-        BrowserModule
+        CoreModule
     ],
     exports:[
         LoadingComponent

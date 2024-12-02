@@ -10,6 +10,7 @@ public static class CoreServicesExtensions
     public static IServiceCollection ConfigureCoreServices(this IServiceCollection services)
     {
         services.AddScoped<IDataCenterService, DataCenterService> ();
+        services.AddScoped<IServerService, ServerService> ();
 
         services.ConfigureMapster ();
 

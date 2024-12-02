@@ -1,4 +1,5 @@
 <p>Data centers</p>
+<loading></loading>
 <mat-card>
     <mat-card-header>
         <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon>Create a new data center</button>
@@ -32,7 +33,7 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let item">
-                    <button mat-icon-button aria-label="edit item"><mat-icon>edit</mat-icon></button>
+                    <a mat-icon-button aria-label="edit item" [routerLink]="[item.id]" ><mat-icon>edit</mat-icon></a>
                     <button mat-icon-button aria-label="delete item"><mat-icon>delete</mat-icon></button>
                 </td>
             </ng-container>        

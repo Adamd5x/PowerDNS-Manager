@@ -4,36 +4,38 @@ using MapsterMapper;
 namespace hiPower.Core;
 
 public class DataCenterService(IUnitOfWork unit,
-                             IMapper mapper) : IDataCenterService
+                               IMapper mapper) : IDataCenterService
 {
     public async Task<ErrorOr<DataCenter>> CreateAsync (DataCenter location)
     {
-        var result = await unit.LocationRepository.CreateAsync(location.Adapt<ServerLocation>());
+        var result = await unit.DataCenterRepository.CreateAsync(location.Adapt<ServerLocation>());
         await unit.SaveAsync ();
         return mapper.Map<DataCenter> (result);
     }
 
     public async Task<ErrorOr<bool>> DeleteAsync (string id)
     {
-        await unit.LocationRepository.DeleteAsync(id);
+        await unit.DataCenterRepository.DeleteAsync(id);
         return true;
     }
 
     public async Task<ErrorOr<DataCenter>> GetAsync (string id)
     {
-        var result = await unit.LocationRepository.GetAsync(x => x.Id.Equals(id.ToUpperInvariant()), null);
+        var result = await unit.DataCenterRepository.GetAsync(x => x.Id.Equals(id.ToUpperInvariant()), null);
         return result.Adapt<DataCenter> ();
     }
 
     public async Task<ErrorOr<IEnumerable<DataCenter>>> GetAsync ()
     {
-        var result = await unit.LocationRepository.GetAll(null, null,null);
+        var result = await unit.DataCenterRepository.GetAll(null, null,null);
         return result.Adapt<IEnumerable<DataCenter>> ().ToErrorOr ();
     }
 
-    public Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetServers (string id)
+    public async Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetServers (string id)
     {
-        throw new NotImplementedException ();
+        var result = await unit.ServerRepository.GetAll(x => x.LocationId.Equals(id.ToUpper()), null, null);
+        return result.Adapt<IEnumerable<Dto.Manager.Server>> ()
+                     .ToErrorOr();
     }
 
     public async Task<ErrorOr<DataCenter>> UpdateAsync (string id, DataCenter dataCenter)
@@ -42,7 +44,7 @@ public class DataCenterService(IUnitOfWork unit,
         {
             return Error.NotFound (dataCenter.Id);
         }
-        var result = unit.LocationRepository
+        var result = unit.DataCenterRepository
                          .Update(dataCenter.Adapt<ServerLocation>())
                          .ToErrorOr();
 

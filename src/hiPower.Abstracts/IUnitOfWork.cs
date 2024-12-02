@@ -4,7 +4,7 @@ namespace hiPower.Abstracts;
 
 public interface IUnitOfWork : IDisposable
 {
-    IGenericRepository<ServerLocation> LocationRepository { get; }
+    IGenericRepository<ServerLocation> DataCenterRepository { get; }
     IGenericRepository<Entity.Server> ServerRepository { get; }
     Task SaveAsync ();
 }

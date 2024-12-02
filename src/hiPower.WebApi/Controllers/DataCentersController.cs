@@ -6,7 +6,7 @@ namespace hiPower.WebApi.Controllers
     [Route ("api/datacenters")]
     [ApiController]
     [Produces (MediaTypeNames.Application.Json)]
-    public class DataCenterController(IDataCenterService locationService) : ControllerBase
+    public class DataCentersController(IDataCenterService locationService) : ControllerBase
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type= typeof (ApiResult<IEnumerable<DataCenter>>))]
@@ -20,6 +20,7 @@ namespace hiPower.WebApi.Controllers
             }
 
             var response = new ApiResult<IEnumerable<DataCenter>>(true, result.Value);
+            Thread.Sleep (1000);
             return Ok (response);
         }
 
@@ -36,6 +37,7 @@ namespace hiPower.WebApi.Controllers
             { 
                 return BadRequest(new ProblemDetails () { Status = StatusCodes.Status400BadRequest });
             }
+            Thread.Sleep (1000);
             return Ok (new ApiResult<DataCenter> (true, result.Value));
         }
 

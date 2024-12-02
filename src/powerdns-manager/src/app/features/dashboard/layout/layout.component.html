@@ -6,15 +6,15 @@
 <mat-drawer-container autosize>
   <mat-drawer class="mat-elevation-z8" mode="side" [opened]="isOpen">
     <div class="drawer-container">
-      <button mat-raised-button routerLink="/" ><mat-icon>dashboard</mat-icon>Dashboard</button>
+      <button mat-raised-button type="button" aria-label="Go to dashboard" routerLink="/" ><mat-icon>dashboard</mat-icon>Dashboard</button>
       <mat-divider></mat-divider>
-      <button mat-raised-button routerLink="zones"><mat-icon>share</mat-icon>Zones</button>      
-      <button mat-raised-button routerLink="state"><mat-icon>visibility</mat-icon>State</button>
-      <button mat-raised-button routerLink="servers"><mat-icon>computer</mat-icon>Servers</button>
-      <button mat-raised-button routerLink="datacenters"><mat-icon>map</mat-icon>Data centers</button>
-      <button mat-raised-button routerLink="templates"><mat-icon>fingerprint</mat-icon>Templates</button>
+      <button mat-raised-button type="button" aria-label="Go to dns zones" routerLink="zones"><mat-icon>share</mat-icon>Zones</button>      
+      <button mat-raised-button type="button" aria-label="Go to server statistics" routerLink="state"><mat-icon>visibility</mat-icon>State</button>
+      <button mat-raised-button type="button" aria-label="Go to servers" routerLink="servers"><mat-icon>computer</mat-icon>Servers</button>
+      <button mat-raised-button type="button" aria-label="Go to data centers" routerLink="datacenters"><mat-icon>map</mat-icon>Data centers</button>
+      <button mat-raised-button type="button" aria-label="Go to zones templates" routerLink="templates"><mat-icon>fingerprint</mat-icon>Templates</button>
       <mat-divider></mat-divider>      
-      <button mat-raised-button routerLink="/"><mat-icon>people</mat-icon>Users</button>
+      <button mat-raised-button type="button" aria-label="Go to user manager" routerLink="/"><mat-icon>people</mat-icon>Users</button>
     </div>    
     <div class="author">
       2024 - Adam Debowski
@@ -23,6 +23,7 @@
   <mat-drawer-content>
     <div class="content">
       <div>
+        <loading [detectRoutingOngoing]="true"></loading>
         <router-outlet></router-outlet>
       </div>
     </div>

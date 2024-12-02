@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataCenterService } from '../services/data-center.service';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, tap } from 'rxjs';
 import { DataCenter } from '../core/models/data-center';
+import { LoadingService } from '@shared/components/loading/loading.service';
 
 @Component({
   selector: 'app-home-datacenters',
@@ -22,10 +23,18 @@ export class HomeComponent implements OnInit {
     'action'
   ];
 
-  constructor(private dataCenterService: DataCenterService) {}
+  constructor(private dataCenterService: DataCenterService,
+              private loadinService: LoadingService) {
 
-  ngOnInit(): void {
-    this.datacenters$ = this.dataCenterService.getDataCentres();
   }
 
+  ngOnInit(): void {
+    const loading$ = this.dataCenterService.getDataCentres();
+    this.datacenters$ = this.loadinService
+                            .showLoaderUntilCompleted<DataCenter[]>(loading$);
+  }
+
+  onEdit(item: DataCenter): void {
+
+  }
 }

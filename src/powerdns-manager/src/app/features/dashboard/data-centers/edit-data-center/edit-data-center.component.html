@@ -1,7 +1,7 @@
 <loading></loading>
 <mat-card>
     <mat-card-header>
-        Create a new data center
+        Edit data center
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="form">
@@ -71,12 +71,7 @@
         <button mat-raised-button
                 color="primary"
                 type="button"
-                aria-label="Create new data center"
-                (click)="onSubmit()"><mat-icon>save</mat-icon>Create</button>
-        <button mat-raised-button
-                color="secondary"
-                type="button"
-                aria-label="Reset form"
-                (click)="form.reset()"><mat-icon>delete_forever</mat-icon>Clear form</button>
+                aria-label="Update"
+                (click)="onSubmit()"><mat-icon>save</mat-icon>Save</button>
     </mat-card-actions>
 </mat-card>

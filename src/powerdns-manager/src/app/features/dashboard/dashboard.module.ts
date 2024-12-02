@@ -12,6 +12,8 @@ import { ManagerErrorHandler } from '@shared/handlers/manager-error-handler';
 import { DashboarRoutingModule } from './bashboard-routing.nodule';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
+import { LoadingModule } from '@shared/components/loading/loading.module';
+import { LoadingService } from '@shared/components/loading/loading.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import { HomeComponent } from './home/home.component';
     MatToolbarModule,
     DashboarRoutingModule,
     SharedModule,
-    MaterialsModule
-  ],
+    MaterialsModule,
+    LoadingModule
+],
   providers: [
+    LoadingService,
     {
       provide: ErrorHandler,
       useClass: ManagerErrorHandler

@@ -1,19 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using hiPower.Abstracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace hiPower.WebApi.Controllers
 {
     [Route ("api/servers")]
     [ApiController]
     [Produces (MediaTypeNames.Application.Json)]
-    public class ServersController : ControllerBase
+    public class ServersController(IServerService serverService) : ControllerBase
     {
         [HttpGet]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
-        public IActionResult GetAll ()
+        public async Task<IActionResult> GetAll ()
         {
-            var response = new ApiResult<IEnumerable<Server>>(true, []);
+            var response = await serverService.GetAllAsync ();
 
-            return Ok (response);
+            if (response.IsError)
+            {
+                return BadRequest ();
+            }
+
+            return Ok (new ApiResult<IEnumerable<Server>>(!response.IsError, response.Value));
         }
 
 
@@ -21,26 +27,56 @@ namespace hiPower.WebApi.Controllers
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
-        public IActionResult Get ([FromRoute] string id)
+        public async Task<IActionResult> Get ([FromRoute] string id)
         {
-            var result = new ApiResult<Server>(true, new Server());
-            return Ok (result);
+            var result = await serverService.GetAsync (id);
+
+            if (result.IsError)
+            {
+                return NotFound ();
+            }
+
+            return Ok (new ApiResult<Server>(!result.IsError, result.Value));
         }
 
-        [HttpGet ("{id}/zones")]
-        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Zone>>))]
-        [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
-        public IActionResult GetZones ([FromRoute] string id)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<Server>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
+        public async Task<IActionResult> Create ([FromBody] Server server)
         {
-            IEnumerable<Zone> zones = [
-                new Zone("example-1.eu",ZoneKind.Slave, ["127.0.0.1"], false, 2024051626),
-                new Zone("example-2.eu",ZoneKind.Slave, ["127.0.0.1"], false, 2024100116),
-                new Zone("example-3.pl",ZoneKind.Slave, ["127.0.0.1"], false, 2021090103),
-            ];
+            var result = await serverService.CreateAsync(server);
+            if (result.IsError)
+            {
+                return BadRequest ();
+            }
+            return Created (string.Empty, new ApiResult<Server> (!result.IsError, result.Value));
+        }
 
-            var result = new ApiResult<IEnumerable<Zone>>(true, zones);
-            return Ok (result);
+        [HttpPut ("{id}")]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
+        [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
+        public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] Server server)
+        {
+            var result = await serverService.UpdateAsync(id, server);
+            if (result.IsError)
+            {
+                return BadRequest ();
+            }
+            return Ok (new ApiResult<Server> (!result.IsError, result.Value));
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
+        [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
+        public async Task<IActionResult> Deleted ([FromQuery] string id)
+        {
+            var result = await serverService.DeleteAsync(id);
+
+            if(result.IsError)
+            {
+                return BadRequest ();
+            }
+            return Ok ();
         }
     }
 }

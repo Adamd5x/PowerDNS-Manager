@@ -8,7 +8,6 @@ import { ConfigService } from 'src/app/initializer/config.service';
 import { DataCenter } from '../core/models/data-center';
 import { ApiResponse } from '@shared/models/api-response';
 
-
 @Injectable()
 export class DataCenterService extends DataService {
 
@@ -16,8 +15,7 @@ export class DataCenterService extends DataService {
                                 .getEndpoint('DataCenters');
 
   constructor(http: HttpClient,
-              private configService: ConfigService
-  ) {
+              private configService: ConfigService) {
     super(http);
    }
 
@@ -25,7 +23,7 @@ export class DataCenterService extends DataService {
     return this.get<ApiResponse<DataCenter[]>>(this.apiUrl)
                .pipe(
                   filter(x => x.success),
-                  map(m => m.data as DataCenter[])
+                  map(m => m.data as DataCenter[]),
                );
    }
 

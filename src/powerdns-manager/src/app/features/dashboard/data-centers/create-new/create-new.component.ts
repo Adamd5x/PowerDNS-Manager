@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { DataCenterService } from '../services/data-center.service';
+import { LoadingService } from '@shared/components/loading/loading.service';
+import { DataCenter } from '../core/models/data-center';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-new',
@@ -19,27 +22,34 @@ export class CreateNewComponent {
       Validators.maxLength(150)
     ]],
     city: ['',[
-      Validators.maxLength(100)
+      Validators.maxLength(150)
     ]],
     postalCode: ['', [
-      Validators.maxLength(20)
+      Validators.maxLength(50)
     ]],
     region: ['', [
       Validators.maxLength(50)
     ]],
     country: ['', [
-      Validators.maxLength(100)
+      Validators.maxLength(50)
+    ]],
+    description:['',[
+      Validators.maxLength(250)
     ]]
   });
 
   constructor(private fb: NonNullableFormBuilder,
-              private dataCenterService: DataCenterService){}
+              private dataCenterService: DataCenterService,
+              private loadinService: LoadingService,
+              private router: Router){}
 
   onSubmit(): void {
     if (this.form.valid) {
+      this.loadinService.loadingOn();
       const formData = this.form.value;
 
-      this.dataCenterService.createDataCenter({
+      const save$ = this.dataCenterService
+                        .createDataCenter({
         id: '',
         name: formData.name!,
         address: formData.address,
@@ -47,7 +57,14 @@ export class CreateNewComponent {
         postalCode: formData.postalCode,
         region: formData.region,
         country: formData.country
-      }).subscribe();
+      });
+
+      save$.subscribe({
+            complete: () => {
+              this.loadinService.loadingOff();
+              this.router.navigate(['..']);
+            }
+          });
     }
   }
 }
