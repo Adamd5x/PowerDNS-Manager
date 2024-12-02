@@ -47,7 +47,7 @@ public class DataCenterService(IUnitOfWork unit,
         var result = unit.DataCenterRepository
                          .Update(dataCenter.Adapt<ServerLocation>())
                          .ToErrorOr();
-
+        await unit.SaveAsync ();
         return await Task.FromResult(result.Adapt<DataCenter> ());
     }
 }

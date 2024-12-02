@@ -62,7 +62,7 @@ export class CreateNewComponent {
       save$.subscribe({
             complete: () => {
               this.loadinService.loadingOff();
-              this.router.navigate(['..']);
+              this.router.navigate(['dashboard/datacenters']);
             }
           });
     }

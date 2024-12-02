@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { DataCenterService } from '../services/data-center.service';
+import { DataCenter } from '../core/models/data-center';
 
 @Component({
   selector: 'app-edit-data-center',
@@ -38,6 +40,8 @@ export class EditDataCenterComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
+              private dataCenterService: DataCenterService,
+              private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +50,16 @@ export class EditDataCenterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.form.valid) {
+      const data = this.form.value as Partial<DataCenter>;
+      const save$ = this.dataCenterService
+                        .updateDataCenter(data.id!, data);
 
+      save$.subscribe({
+        complete: ()=> {
+          this.router.navigate(['dashboard/datacenters']);
+        }
+      })
+    }
   }
 }

@@ -41,4 +41,11 @@ export class DataCenterService extends DataService {
                   map(x => x as DataCenter)
                  );
    }
+
+   updateDataCenter(id: string, dataCenter: Partial<DataCenter>): Observable<DataCenter> {
+      return this.update<DataCenter>(`${this.apiUrl}/${id}`, dataCenter)
+                 .pipe(
+                     map(x => x as DataCenter)
+                 );
+   }
 }
