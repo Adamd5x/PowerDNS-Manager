@@ -45,6 +45,13 @@ public class ServerService(IUnitOfWork unit,
         return Error.NotFound();
     }
 
+    public async Task<ErrorOr<IEnumerable<HintItem>>> GetAvailableDataCentersAsync ()
+    {
+        var result = await unit.DataCenterRepository.GetAll(null, null, null);
+        return result.Adapt<IEnumerable<HintItem>>()
+                     .ToErrorOr();
+    }
+
     public async Task<ErrorOr<Dto.Manager.Server>> UpdateAsync (string id, Dto.Manager.Server server)
     {
         if (id.ToUpper ().Equals (server.Id.ToUpper ())) 

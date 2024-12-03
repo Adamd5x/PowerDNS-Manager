@@ -8,11 +8,11 @@ namespace hiPower.WebApi.Controllers
     [Produces (MediaTypeNames.Application.Json)]
     public class ServersController(IServerService serverService) : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("{dataCenterId}")]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
-        public async Task<IActionResult> GetAll ()
+        public async Task<IActionResult> GetAll ([FromRoute] string dataCenterId)
         {
-            var response = await serverService.GetAllAsync ();
+            var response = await serverService.GetAllAsync (dataCenterId);
 
             if (response.IsError)
             {
@@ -23,7 +23,7 @@ namespace hiPower.WebApi.Controllers
         }
 
 
-        [HttpGet ("{id}")]
+        [HttpGet ("{id}/server")]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
@@ -37,6 +37,18 @@ namespace hiPower.WebApi.Controllers
             }
 
             return Ok (new ApiResult<Server>(!result.IsError, result.Value));
+        }
+
+        [HttpGet("datacenters")]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<HintItem>>))]
+        public async Task<IActionResult> HintDataCenters()
+        {
+            var result = await serverService.GetAvailableDataCentersAsync ();
+            if (result.IsError)
+            {
+                return BadRequest ();
+            }
+            return Ok (new ApiResult<IEnumerable<HintItem>>(true, result.Value));
         }
 
         [HttpPost]

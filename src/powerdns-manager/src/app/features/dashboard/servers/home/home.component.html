@@ -1,1 +1,56 @@
-<p>servers home works!</p>
+<p>Servers</p>
+<loading [detectRoutingOngoing]="true"></loading>
+<mat-card>
+    <mat-card-header>
+        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon>Create a new server</button>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Data center</mat-label>
+            <mat-select *ngIf="dataCenters$ | async as dataCenters"
+                        (selectionChange)="onChangeDataCenter(center.selected)"
+                        #center>
+                <mat-option>Choose one</mat-option>
+                @for(item of dataCenters; track item) {
+                    <mat-option [value]="item.id">{{item.name}}</mat-option>
+                }                        
+            </mat-select>
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <table mat-table [dataSource]="servers$">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="proto">
+                <th mat-header-cell *matHeaderCellDef>Protocol</th>
+                <td mat-cell *matCellDef="let item">{{ item.proto}}</td>
+            </ng-container>
+            <ng-container matColumnDef="hostAddress">
+                <th mat-header-cell *matHeaderCellDef>Address</th>
+                <td mat-cell *matCellDef="let item">{{ item.hostAddress }}</td>
+            </ng-container>
+            <ng-container matColumnDef="port">
+                <th mat-header-cell *matHeaderCellDef>Port</th>
+                <td mat-cell *matCellDef="let item">{{ item.port }}</td>
+            </ng-container>
+            <ng-container matColumnDef="os">
+                <th mat-header-cell *matHeaderCellDef>OS</th>
+                <td mat-cell *matCellDef="let item">{{ item.os }}</td>
+            </ng-container>        
+            <ng-container matColumnDef="localId">
+                <th mat-header-cell *matHeaderCellDef>Server Id</th>
+                <td mat-cell *matCellDef="let item">{{ item.localId }}</td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let item">
+                    <a mat-icon-button aria-label="edit item" [routerLink]="[item.id]" ><mat-icon>edit</mat-icon></a>
+                    <button mat-icon-button aria-label="delete item" (click)="openDialog('10ms', '10ms', item.id)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </ng-container>        
+            <tr mat-header-row *matHeaderRowDef="columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>        
+    </mat-card-content>
+</mat-card>

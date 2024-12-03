@@ -11,4 +11,6 @@ public interface IServerService
     Task<ErrorOr<Server>> UpdateAsync(string id, Server server);
 
     Task<ErrorOr<bool>> DeleteAsync (string id);
+
+    Task<ErrorOr<IEnumerable<HintItem>>> GetAvailableDataCentersAsync ();
 }
