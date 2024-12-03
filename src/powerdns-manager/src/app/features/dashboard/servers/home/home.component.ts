@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable,
-         EMPTY } from 'rxjs';
+         EMPTY, 
+         filter} from 'rxjs';
+import { MatDialog,
+          MatDialogConfig } from '@angular/material/dialog';
+
 import { Server } from '../core/models/server';
 import { LoadingService } from '@shared/components/loading/loading.service';
 import { ServerService } from '../services/server-service.service';
 import { HintItem } from '@shared/models/hint-item';
+import { DeleteDialogComponent } from '@shared/components/dialogs/delete/delete.component';
+
 
 @Component({
   selector: 'app-home-servers',
@@ -12,6 +18,9 @@ import { HintItem } from '@shared/models/hint-item';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
+  
+  private dataCenterId = '';
 
   columns = [
     'name',
@@ -19,7 +28,8 @@ export class HomeComponent implements OnInit {
     'hostAddress',
     'port',
     'os',
-    'localId'
+    'localId',
+    'action'
   ]
 
   dataCenters$: Observable<HintItem[]> = EMPTY;
@@ -34,21 +44,52 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimtionDuration: string, serverId: string): void {
+    const dialogData = {
+      title: 'Delete server',
+      message: 'Are you sure?',
+    }
 
+    const dialogConfig: MatDialogConfig = {
+      width: '250px',
+      enterAnimationDuration: enterAnimationDuration,
+      exitAnimationDuration: exitAnimtionDuration,
+      data: dialogData
+    };
+
+    this.dialog
+        .open(DeleteDialogComponent, dialogConfig)
+        .afterClosed()
+        .pipe(
+          filter(x => x == true)
+        )
+        .subscribe({
+          next: () => this.deleteServer(serverId)
+        });
   }
 
   loadHints(): void {
     this.dataCenters$ = this.serverService.getDataCenters();
   }
 
-  loadData(): void {
-    
+  loadData(dataCenterId: string): void {
+    const data$ = this.serverService.getServers(dataCenterId);
+    this.servers$ = this.loadinService.showLoaderUntilCompleted<Server[]>(data$);
   }
 
   onChangeDataCenter(selected: any): void {
     if (selected) {
-      const data$ = this.serverService.getServers(selected.value);
-      this.servers$ = this.loadinService.showLoaderUntilCompleted<Server[]>(data$);
+      this.dataCenterId = selected.value;
+      this.loadData(selected.value);
     }
   }
+
+  deleteServer(serverId: string): void {
+    const delete$ = this.serverService
+                        .deleteServer(serverId);
+    this.loadinService
+        .showLoaderUntilCompleted(delete$)
+        .subscribe({
+          complete: () => this.loadData(this.dataCenterId)
+        });
+  }  
 }
