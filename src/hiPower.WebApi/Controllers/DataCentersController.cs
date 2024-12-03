@@ -9,7 +9,7 @@ namespace hiPower.WebApi.Controllers
     public class DataCentersController(IDataCenterService locationService) : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type= typeof (ApiResult<IEnumerable<DataCenter>>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<DataCenter>>))]
         public async Task<IActionResult> GetAll()
         {
             var result = await locationService.GetAsync();
@@ -26,7 +26,7 @@ namespace hiPower.WebApi.Controllers
 
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(ApiResult<DataCenter>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
         public async Task<IActionResult> Get ([FromRoute] string id)
@@ -99,7 +99,7 @@ namespace hiPower.WebApi.Controllers
             return Ok (response);
         }
 
-        [HttpDelete ("id")]
+        [HttpDelete ("{id}")]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<bool>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]

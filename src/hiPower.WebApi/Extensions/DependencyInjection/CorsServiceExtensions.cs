@@ -10,7 +10,7 @@
                 setup.AddPolicy (CorsPolicyName, builder => {
                     builder.AllowAnyOrigin ();
                     builder.AllowAnyHeader ();
-                    builder.AllowAnyMethod ();
+                    builder.WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
                 });
             });
             return services;

@@ -1,4 +1,5 @@
 ﻿using hiPower.Abstracts;
+using hiPower.Common.Type.Errors;
 using MapsterMapper;
 
 namespace hiPower.Core;
@@ -15,7 +16,13 @@ public class DataCenterService(IUnitOfWork unit,
 
     public async Task<ErrorOr<bool>> DeleteAsync (string id)
     {
+        var servers = await unit.ServerRepository.GetAll(x => x.LocationId.Equals(id.ToUpper()), null, null);
+        if (servers.Any())
+        {
+            return DataCenterErrors.DeleteError;
+        }
         await unit.DataCenterRepository.DeleteAsync(id);
+        await unit.SaveAsync ();
         return true;
     }
 

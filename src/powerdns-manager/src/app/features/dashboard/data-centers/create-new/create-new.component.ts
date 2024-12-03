@@ -56,7 +56,8 @@ export class CreateNewComponent {
         city: formData.city,
         postalCode: formData.postalCode,
         region: formData.region,
-        country: formData.country
+        country: formData.country,
+        description: formData.description
       });
 
       save$.subscribe({

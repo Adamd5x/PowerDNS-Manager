@@ -83,13 +83,13 @@ export class DataService {
 
     private handleError(error: Response): Observable<never> {
         if (error.status === NotFoundCode) {
-            return throwError(() => new NotFoundError());
+            return throwError(() => new NotFoundError(error));
         }
     
         if (error.status === BadInputCode ) {
-            return throwError(() => new BadInputError());
+            return throwError(() => new BadInputError(error));
         }
     
-        return throwError(() => new ApplicationError());
+        return throwError(() => new ApplicationError(error));
     }
 }

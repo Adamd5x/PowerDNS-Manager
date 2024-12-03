@@ -14,6 +14,7 @@ import { ConfigService } from 'src/app/initializer/config.service';
 
 import { CreateNewComponent } from './create-new/create-new.component';
 import { EditDataCenterComponent } from './edit-data-center/edit-data-center.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,11 @@ import { EditDataCenterComponent } from './edit-data-center/edit-data-center.com
   providers: [
     DataCenterService,
     ConfigService,
-    LoadingService
+    LoadingService,
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: { hasBackdrop: false }
+    }
   ]
 })
 export class DataCenterModule { }

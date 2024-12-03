@@ -48,4 +48,11 @@ export class DataCenterService extends DataService {
                      map(x => x as DataCenter)
                  );
    }
+
+   deleteDataCenter(id: string): Observable<boolean> {
+      return this.delete(`${this.apiUrl}/${id}`)
+                 .pipe(
+                     map((x: ApiResponse<boolean>) => x.success)
+                 );
+   }
 }

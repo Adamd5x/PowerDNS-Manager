@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+    {{ data.message }}
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button type="button"
+            aria-label="Disagee action"
+            mat-button
+            mat-dialog-close>No</button>
+    <button type="button"
+            aria-label="Approve action"
+            mat-button
+            mat-dialog-close
+            cdkFocusInit
+            [mat-dialog-close]="true">Delete</button>
+</mat-dialog-actions>
