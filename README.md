@@ -27,6 +27,11 @@
   - Postgres
 - Power DNS
 
+## Documents
+- [HTTP Semantics (RFC 9110)](https://www.rfc-editor.org/rfc/rfc9110.html)
+- [Problem Details (RFC 9457)](https://www.rfc-editor.org/rfc/rfc9457.html)
+
+
 ## License info
 - [Angular](https://angular/dev/license) - License: MIT-style License
 - [Angular Material](https://material.angular.io/) - License: MIT-style License
