@@ -16,6 +16,7 @@
 		<Using Include="hiPower.Dto" />
 		<Using Include="hiPower.Dto.Manager" />
 		<Using Include="hiPower.Common.Type" />
+		<Using Include="hiPower.WebApi.Filters"/>
 	</ItemGroup>
 	
   <ItemGroup>

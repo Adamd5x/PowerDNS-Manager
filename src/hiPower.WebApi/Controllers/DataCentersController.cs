@@ -1,6 +1,7 @@
 ﻿using hiPower.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace hiPower.WebApi.Controllers
 {
     [Route ("api/datacenters")]
@@ -26,6 +27,7 @@ namespace hiPower.WebApi.Controllers
 
 
         [HttpGet("{id}")]
+        [ValidateIdFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
@@ -42,6 +44,7 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpGet ("{id}/servers")]
+        [ValidateIdFilter]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
@@ -62,6 +65,7 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpPost]
+        [VallidatModel]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> Create ([FromBody] DataCenter location)
@@ -82,6 +86,8 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [ValidateIdFilter]
+        [VallidatModel]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResult<DataCenter>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] DataCenter location)
@@ -100,6 +106,7 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpDelete ("{id}")]
+        [ValidateIdFilter]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<bool>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]

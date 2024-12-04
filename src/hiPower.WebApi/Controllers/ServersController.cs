@@ -9,6 +9,7 @@ namespace hiPower.WebApi.Controllers
     public class ServersController(IServerService serverService) : ControllerBase
     {
         [HttpGet("{dataCenterId}")]
+        [ValidateIdFilter]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
         public async Task<IActionResult> GetAll ([FromRoute] string dataCenterId)
         {
@@ -24,19 +25,27 @@ namespace hiPower.WebApi.Controllers
 
 
         [HttpGet ("{id}/server")]
+        [ValidateIdFilter]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> Get ([FromRoute] string id)
         {
-            var result = await serverService.GetAsync (id);
+            bool canProcced = Guid.TryParse(id, out Guid correctValue);
 
-            if (result.IsError)
+            if (canProcced)
             {
-                return NotFound ();
-            }
 
-            return Ok (new ApiResult<Server>(!result.IsError, result.Value));
+                var result = await serverService.GetAsync (correctValue.ToString().ToUpper());
+
+                if (result.IsError)
+                {
+                    return NotFound ();
+                }
+
+                return Ok (new ApiResult<Server> (!result.IsError, result.Value));
+            }
+            return BadRequest ();
         }
 
         [HttpGet("datacenters")]
@@ -52,6 +61,7 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpPost]
+        [VallidatModel]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<Server>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
         public async Task<IActionResult> Create ([FromBody] Server server)
@@ -65,6 +75,8 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpPut ("{id}")]
+        [ValidateIdFilter]
+        [VallidatModel]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] Server server)
@@ -78,6 +90,7 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ValidateIdFilter]
         [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> Deleted ([FromQuery] string id)
