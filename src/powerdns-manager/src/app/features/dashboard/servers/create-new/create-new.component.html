@@ -12,22 +12,24 @@
                         placeholder="Name">
                     <mat-hint align="end"></mat-hint>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Data center</mat-label>
-                    <mat-select formControlName="locationId" *ngIf="dataCenters$ | async as dataCenters" >
-                        <mat-option>Choose one</mat-option>
-                        @for(item of dataCenters; track item) {
-                            <mat-option [value]="item.id">{{item.name}}</mat-option>
-                        }                        
-                    </mat-select>
-                </mat-form-field>
+                <ng-container *ngIf="dataCenters$ | async as dataCenters">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data center</mat-label>
+                        <mat-select formControlName="locationId" >
+                            <mat-option>Choose one</mat-option>
+                            @for(item of dataCenters; track item) {
+                                <mat-option [value]="item.id">{{item.name}}</mat-option>
+                            }                        
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
                 <div class="address">
                     <mat-form-field appearance="outline">
                         <mat-label>Proto</mat-label>
                         <mat-select formControlName="proto">
                             <mat-option>Proto</mat-option>
-                            <mat-option value="http">HTTP</mat-option>
-                            <mat-option value="https">HTTPS</mat-option>
+                            <mat-option value="HTTP">HTTP</mat-option>
+                            <mat-option value="HTTPS">HTTPS</mat-option>
                         </mat-select>
                     </mat-form-field>
                         <mat-form-field appearance="outline">

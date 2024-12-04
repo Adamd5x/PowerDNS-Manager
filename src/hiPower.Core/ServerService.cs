@@ -66,6 +66,7 @@ public class ServerService(IUnitOfWork unit,
         { 
             var updateServer = server.Adapt<Entity.Server> ();
             var result = unit.ServerRepository.Update(updateServer);
+            await unit.SaveAsync ();
             return await Task.FromResult(result.Adapt<Dto.Manager.Server>());
         }
         return ServerServiceErrors.UpdateError;

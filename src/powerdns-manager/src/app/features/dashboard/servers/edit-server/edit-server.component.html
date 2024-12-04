@@ -1,6 +1,6 @@
 <loading></loading>
 <mat-card>
-    <mat-card-header>Add a new server</mat-card-header>
+    <mat-card-header>Server details</mat-card-header>
     <mat-card-content>
         <form [formGroup]="form">
             <div class="form">
@@ -14,11 +14,10 @@
                 </mat-form-field>
                 <div class="address">
                     <mat-form-field appearance="outline">
-                        <mat-select matInput
-                                formControlName="proto">
-                            <option>Proto</option>
-                            <option value="http">HTTP</option>
-                            <option value="https">HTTPS</option>
+                        <mat-label>Proto</mat-label>
+                        <mat-select formControlName="proto">
+                            <mat-option value="HTTP">HTTP</mat-option>
+                            <mat-option value="HTTPS">HTTPS</mat-option>
                         </mat-select>
                     </mat-form-field>
                         <mat-form-field appearance="outline">
@@ -104,6 +103,6 @@
                 color="primary"
                 type="button"
                 aria-label="Create new data center"
-                (click)="onSubmit()"><mat-icon>save</mat-icon>Create</button>
+                (click)="onSubmit()"><mat-icon>save</mat-icon>Save</button>
     </mat-card-actions>
 </mat-card>

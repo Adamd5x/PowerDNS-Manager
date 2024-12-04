@@ -5,17 +5,18 @@
         <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon>Create a new server</button>
     </mat-card-header>
     <mat-card-content>
-        <mat-form-field appearance="outline">
-            <mat-label>Data center</mat-label>
-            <mat-select *ngIf="dataCenters$ | async as dataCenters"
-                        (selectionChange)="onChangeDataCenter(center.selected)"
-                        #center>
-                <mat-option>Choose one</mat-option>
-                @for(item of dataCenters; track item) {
-                    <mat-option [value]="item.id">{{item.name}}</mat-option>
-                }                        
-            </mat-select>
-        </mat-form-field>
+        <form *ngIf="dataCenters$ | async as dataCenters">
+            <mat-form-field appearance="outline">
+                <mat-label>Data center</mat-label>
+                <mat-select (selectionChange)="onChangeDataCenter(center.selected)"
+                            #center>
+                    <mat-option>Choose one</mat-option>
+                    @for(item of dataCenters; track item) {
+                        <mat-option [value]="item.id">{{item.name}}</mat-option>
+                    }                        
+                </mat-select>
+            </mat-form-field>
+        </form>
         <mat-divider></mat-divider>
         <table mat-table [dataSource]="servers$">
             <ng-container matColumnDef="name">

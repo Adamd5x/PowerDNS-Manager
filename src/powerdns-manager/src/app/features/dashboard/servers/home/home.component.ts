@@ -10,6 +10,7 @@ import { LoadingService } from '@shared/components/loading/loading.service';
 import { ServerService } from '../services/server-service.service';
 import { HintItem } from '@shared/models/hint-item';
 import { DeleteDialogComponent } from '@shared/components/dialogs/delete/delete.component';
+import { FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -36,7 +37,12 @@ export class HomeComponent implements OnInit {
 
   servers$: Observable<Server[]> = EMPTY;
 
-  constructor(private serverService: ServerService,
+    form = this.fb.group({
+      dataCenterId: [null]
+    });
+
+  constructor(private fb: FormBuilder,
+              private serverService: ServerService,
               private loadinService: LoadingService){}
 
   ngOnInit(): void {

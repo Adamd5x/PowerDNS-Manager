@@ -2,6 +2,7 @@ export interface Server {
     id: string;
     name: string;
     locationId?: string;
+    description?: string;
     proto: string;
     hostAddress: string;
     port: number;

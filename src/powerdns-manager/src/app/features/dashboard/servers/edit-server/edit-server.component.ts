@@ -17,6 +17,7 @@ export class EditServerComponent implements OnInit {
     name: ['', [
       Validators.required
     ]],
+    description: [''],
     locationId: ['', [
       Validators.required
     ]],
