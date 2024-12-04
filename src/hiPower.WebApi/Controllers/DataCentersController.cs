@@ -37,7 +37,11 @@ namespace hiPower.WebApi.Controllers
 
             if (result.IsError) 
             { 
-                return BadRequest(new ProblemDetails () { Status = StatusCodes.Status400BadRequest });
+                if (result.FirstError.Type == ErrorType.NotFound)
+                {
+                    return NotFound();
+                }
+                return BadRequest();
             }
             Thread.Sleep (1000);
             return Ok (new ApiResult<DataCenter> (true, result.Value));
@@ -54,10 +58,7 @@ namespace hiPower.WebApi.Controllers
 
             if (result.IsError)
             {
-                return BadRequest (new ProblemDetails
-                {
-                    Status = StatusCodes.Status400BadRequest
-                });
+                return BadRequest ();
             }
 
             var response = new ApiResult<IEnumerable<Server>>(true, result.Value);
@@ -74,10 +75,7 @@ namespace hiPower.WebApi.Controllers
 
             if (result.IsError)
             {
-                return BadRequest (new ProblemDetails
-                {
-                    Status = StatusCodes.Status400BadRequest
-                });
+                return BadRequest ();
             }
             var temp = result.Value;
             var response = new ApiResult<DataCenter>(true, temp);
@@ -95,10 +93,11 @@ namespace hiPower.WebApi.Controllers
             var result = await locationService.UpdateAsync(id, location);
             if (result.IsError)
             {
-                return BadRequest (new ProblemDetails
+                if (result.FirstError.Type == ErrorType.NotFound)
                 {
-                    Status = StatusCodes.Status400BadRequest
-                });
+                    return NotFound ();
+                }
+                return BadRequest ();
             }
 
             var response = new ApiResult<DataCenter>(true, result.Value);
@@ -115,10 +114,11 @@ namespace hiPower.WebApi.Controllers
             var result = await locationService.DeleteAsync (id);
             if (result.IsError)
             {
-                return BadRequest (new ProblemDetails ()
+                if (result.FirstError.Type == ErrorType.NotFound)
                 {
-                    Status = StatusCodes.Status400BadRequest
-                });
+                    return NotFound () ;
+                }
+                return BadRequest ();
             }
             var response = new ApiResult<bool>(true, result.Value);
             return Ok (response);

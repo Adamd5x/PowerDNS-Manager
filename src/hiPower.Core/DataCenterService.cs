@@ -29,6 +29,10 @@ public class DataCenterService(IUnitOfWork unit,
     public async Task<ErrorOr<DataCenter>> GetAsync (string id)
     {
         var result = await unit.DataCenterRepository.GetAsync(x => x.Id.Equals(id.ToUpperInvariant()), null);
+        if (result is null)
+        {
+            return Error.NotFound();
+        }
         return result.Adapt<DataCenter> ();
     }
 

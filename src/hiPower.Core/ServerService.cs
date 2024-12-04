@@ -23,8 +23,12 @@ public class ServerService(IUnitOfWork unit,
     public async Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetAllAsync (string dataCenterId)
     {
         var result = await unit.ServerRepository.GetAll(x => x.LocationId.Equals(dataCenterId.ToUpper()), null, null);
-        return result.Adapt<IEnumerable<Dto.Manager.Server>> ()
-                     .ToErrorOr();
+        if (result.Any ())
+        {
+            return result.Adapt<IEnumerable<Dto.Manager.Server>> ()
+                         .ToErrorOr ();
+        }
+        return Error.NotFound();
     }
 
     public async Task<ErrorOr<IEnumerable<Dto.Manager.Server>>> GetAllAsync ()
@@ -48,8 +52,12 @@ public class ServerService(IUnitOfWork unit,
     public async Task<ErrorOr<IEnumerable<HintItem>>> GetAvailableDataCentersAsync ()
     {
         var result = await unit.DataCenterRepository.GetAll(null, null, null);
-        return result.Adapt<IEnumerable<HintItem>>()
-                     .ToErrorOr();
+        if (result.Any())
+        {
+            return result.Adapt<IEnumerable<HintItem>> ()
+                         .ToErrorOr ();
+        }
+        return Error.NotFound ();
     }
 
     public async Task<ErrorOr<Dto.Manager.Server>> UpdateAsync (string id, Dto.Manager.Server server)

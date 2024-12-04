@@ -12,6 +12,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<Using Include="ErrorOr"/>
 		<Using Include="System.Net.Mime" />
 		<Using Include="hiPower.Dto" />
 		<Using Include="hiPower.Dto.Manager" />
