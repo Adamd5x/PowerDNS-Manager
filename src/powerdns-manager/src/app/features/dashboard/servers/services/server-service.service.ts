@@ -10,6 +10,7 @@ import { ConfigService } from "src/app/initializer/config.service";
 import { ApiResponse } from "@shared/models/api-response";
 import { Server } from "../core/models/server";
 import { HintItem } from "@shared/models/hint-item";
+import { ServiceConfigItem } from "../core/models/service-config-item";
 
 @Injectable()
 export class ServerService extends DataService {
@@ -42,6 +43,14 @@ export class ServerService extends DataService {
                    .pipe(
                     filter((x: ApiResponse<HintItem[]>) => x.success),
                     map((x: ApiResponse<HintItem[]>) => x.data as HintItem[])
+                   )
+    }
+
+    getServiceConfig(id: string): Observable<ServiceConfigItem[]> {
+        return this.get<ApiResponse<ServiceConfigItem[]>>(`${this.apiUrl}/${id}/config`)
+                   .pipe(
+                    filter((x: ApiResponse<ServiceConfigItem[]>) => x.success),
+                    map((x: ApiResponse<ServiceConfigItem[]>) => x.data as ServiceConfigItem[])
                    )
     }
 

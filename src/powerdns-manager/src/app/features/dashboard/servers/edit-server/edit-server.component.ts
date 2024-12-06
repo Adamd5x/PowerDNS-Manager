@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServerService } from '../services/server-service.service';
 import { Server } from '../core/models/server';
+import { ServiceConfigItem } from '../core/models/service-config-item';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { Server } from '../core/models/server';
   styleUrl: './edit-server.component.scss'
 })
 export class EditServerComponent implements OnInit {
+
+  private serverId = '';
 
   form = this.fb.group({
     id: [],
@@ -52,7 +55,7 @@ export class EditServerComponent implements OnInit {
     const server = this.route
                       .snapshot
                       .data['serverDetails'];
-
+    this.serverId = server.id;
     this.form.setValue(server);
   }
 
@@ -68,5 +71,18 @@ export class EditServerComponent implements OnInit {
         }
       })
     }
+  }
+
+  onRetrieveConfig(): void {
+    this.serverService
+        .getServiceConfig(this.serverId)
+        .subscribe({
+          next: (response: ServiceConfigItem[]) => {
+            const configDetails = JSON.stringify(response);
+            this.form.patchValue({
+              configuration: configDetails
+            })
+          }
+        });
   }
 }

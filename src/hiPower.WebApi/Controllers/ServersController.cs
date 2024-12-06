@@ -1,4 +1,6 @@
 ﻿using hiPower.Abstracts;
+using hiPower.Dto.Remote;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hiPower.WebApi.Controllers
@@ -45,13 +47,17 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpGet("{id}/config")]
+        [ValidateIdFilter]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<SettingsItem>>))]
+        [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> GetConfiguration ([FromRoute] string id)
         {
             var result = await serverService.GetRemoteConfigurationAsync (id);
-            return Ok (result.Value);
+            return Ok (new ApiResult<IEnumerable<SettingsItem>>(true, result.Value.Adapt<IEnumerable<SettingsItem>>()));
         }
 
         [HttpGet ("{id}/statistics")]
+        [ValidateIdFilter]
         public async Task<IActionResult> GetStatistics ([FromRoute] string id)
         {
             var result = await serverService.GetRemoteStatisticsAsync (id);
@@ -59,6 +65,7 @@ namespace hiPower.WebApi.Controllers
         }
 
         [HttpGet ("{id}/info")]
+        [ValidateIdFilter]
         public async Task<IActionResult> GetInfo ([FromRoute] string id)
         {
             var result = await serverService.GetRemoteServerInfoAsync (id);
