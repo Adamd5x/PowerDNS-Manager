@@ -1,5 +1,4 @@
-﻿using ErrorOr;
-using hiPower.Abstracts;
+﻿using hiPower.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hiPower.WebApi.Controllers
@@ -11,7 +10,7 @@ namespace hiPower.WebApi.Controllers
     {
         [HttpGet("{dataCenterId}")]
         [ValidateIdFilter]
-        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Dto.Manager.Server>>))]
         public async Task<IActionResult> GetAll ([FromRoute] string dataCenterId)
         {
             var result = await serverService.GetAllAsync (dataCenterId);
@@ -22,13 +21,13 @@ namespace hiPower.WebApi.Controllers
                 return NotFound ();
             }
 
-            return Ok (new ApiResult<IEnumerable<Server>>(!result.IsError, result.Value));
+            return Ok (new ApiResult<IEnumerable<Dto.Manager.Server>>(!result.IsError, result.Value));
         }
 
 
         [HttpGet ("{id}/server")]
         [ValidateIdFilter]
-        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Dto.Manager.Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> Get ([FromRoute] string id)
@@ -42,7 +41,28 @@ namespace hiPower.WebApi.Controllers
                 return NotFound ();
             }
 
-            return Ok (new ApiResult<Server> (!result.IsError, result.Value));
+            return Ok (new ApiResult<Dto.Manager.Server> (!result.IsError, result.Value));
+        }
+
+        [HttpGet("{id}/config")]
+        public async Task<IActionResult> GetConfiguration ([FromRoute] string id)
+        {
+            var result = await serverService.GetRemoteConfigurationAsync (id);
+            return Ok (result.Value);
+        }
+
+        [HttpGet ("{id}/statistics")]
+        public async Task<IActionResult> GetStatistics ([FromRoute] string id)
+        {
+            var result = await serverService.GetRemoteStatisticsAsync (id);
+            return Ok (result.Value);
+        }
+
+        [HttpGet ("{id}/info")]
+        public async Task<IActionResult> GetInfo ([FromRoute] string id)
+        {
+            var result = await serverService.GetRemoteServerInfoAsync (id);
+            return Ok (result.Value);
         }
 
         [HttpGet("datacenters")]
@@ -60,21 +80,21 @@ namespace hiPower.WebApi.Controllers
 
         [HttpPost]
         [VallidatModel]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<Server>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResult<Dto.Manager.Server>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> Create ([FromBody] Server server)
+        public async Task<IActionResult> Create ([FromBody] Dto.Manager.Server server)
         {
             var result = await serverService.CreateAsync(server);
-            return Created (string.Empty, new ApiResult<Server> (!result.IsError, result.Value));
+            return Created (string.Empty, new ApiResult<Dto.Manager.Server> (!result.IsError, result.Value));
         }
 
         [HttpPut ("{id}")]
         [ValidateIdFilter]
         [VallidatModel]
-        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Dto.Manager.Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] Server server)
+        public async Task<IActionResult> Update ([FromRoute] string id, [FromBody] Dto.Manager.Server server)
         {
             var result = await serverService.UpdateAsync(id, server);
             bool notFound = result.IsError && result.FirstError.Type == ErrorType.NotFound;
@@ -82,14 +102,14 @@ namespace hiPower.WebApi.Controllers
             {
                 return NotFound ();
             }
-            return Ok (new ApiResult<Server> (!result.IsError, result.Value));
+            return Ok (new ApiResult<Dto.Manager.Server> (!result.IsError, result.Value));
         }
 
         [HttpDelete("{id}")]
         [ValidateIdFilter]
-        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Server>))]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<Dto.Manager.Server>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
-        public async Task<IActionResult> Deleted ([FromQuery] string id)
+        public async Task<IActionResult> Deleted ([FromRoute] string id)
         {
             var result = await serverService.DeleteAsync(id);
             bool notFound = result.IsError && result.FirstError.Type == ErrorType.NotFound;

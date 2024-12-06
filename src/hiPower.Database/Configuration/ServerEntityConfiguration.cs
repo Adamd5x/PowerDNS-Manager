@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace hiPower.Database.Configuration;
 
-internal class ServerEntityConfiguration : IEntityTypeConfiguration<Server>
+internal class ServerEntityConfiguration : IEntityTypeConfiguration<ServerDetails>
 {
-    public void Configure (EntityTypeBuilder<Server> builder)
+    public void Configure (EntityTypeBuilder<ServerDetails> builder)
     {
-        builder.ToTable ($"{Prefix.Table}{nameof(Server)}");
+        builder.ToTable ($"{Prefix.Table}Server");
 
         builder.HasKey ( t => t.Id );
 

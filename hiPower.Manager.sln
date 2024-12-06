@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hiPower.Test.Integration", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hiPower.Repository", "src\hiPower.Repository\hiPower.Repository.csproj", "{90CDBFED-0814-4F69-9039-CC087D0B3C55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hiPower.Repository.Azure", "src\hiPower.Repository.Azure\hiPower.Repository.Azure.csproj", "{0C64BF69-BBE7-4AAA-A9C0-4A48CF4521BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hiPower.Repository.Azure", "src\hiPower.Repository.Azure\hiPower.Repository.Azure.csproj", "{0C64BF69-BBE7-4AAA-A9C0-4A48CF4521BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hiPower.Server.Communication", "src\hiPower.Server.Communication\hiPower.Server.Communication.csproj", "{09F62807-E6CE-4C3B-904C-7CE16852D579}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{0C64BF69-BBE7-4AAA-A9C0-4A48CF4521BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C64BF69-BBE7-4AAA-A9C0-4A48CF4521BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C64BF69-BBE7-4AAA-A9C0-4A48CF4521BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F62807-E6CE-4C3B-904C-7CE16852D579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F62807-E6CE-4C3B-904C-7CE16852D579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F62807-E6CE-4C3B-904C-7CE16852D579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F62807-E6CE-4C3B-904C-7CE16852D579}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{3C659985-42FD-4891-A56B-6D3D36BE939F} = {9AAC9818-174C-4CA7-A6A7-3A3CEE2A195C}
 		{90CDBFED-0814-4F69-9039-CC087D0B3C55} = {82B938FA-29E8-41B4-B4FA-AF77C343884E}
 		{0C64BF69-BBE7-4AAA-A9C0-4A48CF4521BC} = {82B938FA-29E8-41B4-B4FA-AF77C343884E}
+		{09F62807-E6CE-4C3B-904C-7CE16852D579} = {82B938FA-29E8-41B4-B4FA-AF77C343884E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5E8CDB0-BE42-425F-B06D-EEF8F312C879}

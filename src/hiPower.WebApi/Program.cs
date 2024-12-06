@@ -2,6 +2,7 @@ using hiPower.Core.Extensions.DependencyInjection;
 using hiPower.Database.Extensions.DependencyInjection;
 using hiPower.Infrastructure.Extensions.DependencyInjection;
 using hiPower.WebApi.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.ConfigureWebHostServices (builder.Configuration)
                 .ConfigureDbRepository (builder.Configuration)
                 .ConfigureCoreServices ()
                 .ConfigureInfrastructureServices(builder.Configuration);
+
 
 var app = builder.Build();
 

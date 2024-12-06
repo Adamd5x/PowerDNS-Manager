@@ -11,11 +11,11 @@ namespace hiPower.Repository
         private readonly ManagerDbContext dbContext = new(options);
 
         private IGenericRepository<ServerLocation>? dataCenterRepository;
-        private IGenericRepository<Server>? serverRepository;
+        private IGenericRepository<ServerDetails>? serverRepository;
 
         public IGenericRepository<ServerLocation> DataCenterRepository => dataCenterRepository ??= new GenericRepository<ServerLocation> (dbContext);
 
-        public IGenericRepository<Server> ServerRepository => serverRepository ??= new GenericRepository<Server> (dbContext);
+        public IGenericRepository<ServerDetails> ServerRepository => serverRepository ??= new GenericRepository<ServerDetails> (dbContext);
 
         public async Task SaveAsync ()
         {
@@ -42,6 +42,5 @@ namespace hiPower.Repository
 
         }
         #endregion IDisposable
-
     }
 }

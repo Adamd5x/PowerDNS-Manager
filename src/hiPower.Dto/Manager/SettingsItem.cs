@@ -1,6 +1,6 @@
-﻿namespace hiPower.Dto.Remote;
+﻿namespace hiPower.Dto.Manager;
 
-public class StatisticsItemResult
+public class SettingsItem
 {
     public string Name { get; set; }
     public string Type { get; set; }

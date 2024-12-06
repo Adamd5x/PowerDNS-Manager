@@ -1,4 +1,3 @@
-# For more info on HTTP files go to https://aka.ms/vs/httpfile
 # The variables that start with a capital letter are from the environment file.
 @apiUrl={{Proto}}://{{HostAddress}}:{{Port}}/api/v1
 @metricsUrl={{Proto}}://{{HostAddress}}:{{Port}}
@@ -18,6 +17,11 @@ Accepty: {{accept}}
 GET {{apiUrl}}/servers/{{serverId}}
 X-API-Key: {{ApiKey}}
 Accept: {{accept}}
+###
+
+# Configuration
+GET {{apiUrl}}/servers/{{serverId}}/config
+X-API-Key: {{ApiKey}}
 ###
 
 # Statistics

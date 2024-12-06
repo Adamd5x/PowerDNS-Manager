@@ -1,10 +1,13 @@
-﻿namespace hiPower.Core.Mappings;
+﻿using hiPower.Common.Type.Extensions;
+using hiPower.Common.Type.Options;
+
+namespace hiPower.Core.Mappings;
 
 internal class ServerMappring : IRegister
 {
     public void Register (TypeAdapterConfig config)
     {
-        config.NewConfig<Dto.Manager.Server, Entity.Server> ()
+        config.NewConfig<Server, ServerDetails> ()
                .Map (dest => dest.Id, src => src.Id)
                .Map (dest => dest.LocalId, src => src.LocalId)
                .Map (dest => dest.LocationId, src => src.LocationId)
@@ -17,11 +20,9 @@ internal class ServerMappring : IRegister
                .Map (dest => dest.Auth, src => src.Auth)
                .Map (dest => dest.Version, src => src.Version)
                .Map (dest => dest.OS, src => src.OS)
-               .Map (dest => dest.Configuration, src => src.Configuration)
-               .Map (dest => dest.Timeout, src => src.Timeout)
-               .Map (dest => dest.Retries, src => src.Retries);
+               .Map (dest => dest.Configuration, src => src.Configuration);
 
-        config.NewConfig<Entity.Server, Dto.Manager.Server> ()
+        config.NewConfig<ServerDetails, Server> ()
                .Map (dest => dest.Id, src => src.Id)
                .Map (dest => dest.LocalId, src => src.LocalId)
                .Map (dest => dest.LocationId, src => src.LocationId)
@@ -34,8 +35,9 @@ internal class ServerMappring : IRegister
                .Map (dest => dest.Auth, src => src.Auth)
                .Map (dest => dest.Version, src => src.Version)
                .Map (dest => dest.OS, src => src.OS)
-               .Map (dest => dest.Configuration, src => src.Configuration)
-               .Map (dest => dest.Timeout, src => src.Timeout)
-               .Map (dest => dest.Retries, src => src.Retries);
+               .Map (dest => dest.Configuration, src => src.Configuration);
+
+        config.NewConfig<ServerDetails, RemoteServiceOptions> ()
+              .MapWith (src => new RemoteServiceOptions(src.Proto.ToProtocol(), src.HostAddress, Convert.ToUInt16(src.Port), src.LocalId, src.ApiKey, src.Auth));
     }
 }

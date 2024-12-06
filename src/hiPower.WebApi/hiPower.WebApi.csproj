@@ -12,12 +12,12 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<Using Include="ErrorOr"/>
+		<Using Include="ErrorOr" />
 		<Using Include="System.Net.Mime" />
 		<Using Include="hiPower.Dto" />
 		<Using Include="hiPower.Dto.Manager" />
 		<Using Include="hiPower.Common.Type" />
-		<Using Include="hiPower.WebApi.Filters"/>
+		<Using Include="hiPower.WebApi.Filters" />
 	</ItemGroup>
 	
   <ItemGroup>
@@ -25,8 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.0" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
   </ItemGroup>

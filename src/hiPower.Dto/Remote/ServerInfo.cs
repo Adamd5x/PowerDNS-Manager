@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace hiPower.Dto.Remote;
 
-public sealed class ServerItem
+public sealed class ServerInfo
 {
 
     [JsonPropertyName ("id")]

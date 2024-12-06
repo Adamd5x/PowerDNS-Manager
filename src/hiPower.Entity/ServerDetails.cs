@@ -2,7 +2,7 @@
 
 namespace hiPower.Entity;
 
-public class Server: EntityBase
+public class ServerDetails: EntityBase
 {
     public string Name { get; set; }
 
@@ -28,8 +28,10 @@ public class Server: EntityBase
 
     public ServerState State { get; set; }
 
+    [Obsolete]
     public int Timeout { get; set; }
 
+    [Obsolete]
     public int Retries { get; set; }
 
     public string LocationId { get; set; }

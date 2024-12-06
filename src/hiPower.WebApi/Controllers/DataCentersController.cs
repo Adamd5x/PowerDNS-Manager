@@ -49,7 +49,7 @@ namespace hiPower.WebApi.Controllers
 
         [HttpGet ("{id}/servers")]
         [ValidateIdFilter]
-        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Server>>))]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<IEnumerable<Dto.Manager.Server>>))]
         [ProducesResponseType (StatusCodes.Status400BadRequest, Type = typeof (ProblemDetails))]
         [ProducesResponseType (StatusCodes.Status404NotFound, Type = typeof (ProblemDetails))]
         public async Task<IActionResult> GetServers ([FromRoute] string id)
@@ -61,7 +61,7 @@ namespace hiPower.WebApi.Controllers
                 return BadRequest ();
             }
 
-            var response = new ApiResult<IEnumerable<Server>>(true, result.Value);
+            var response = new ApiResult<IEnumerable<Dto.Manager.Server>>(true, result.Value);
             return Ok (response);
         }
 

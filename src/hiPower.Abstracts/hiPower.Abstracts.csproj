@@ -7,9 +7,10 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Using Include="ErrorOr"/>
-		<Using Include="hiPower.Dto.Manager"/>
-		<Using Include="hiPower.Dto.Remote"/>
+		<Using Include="ErrorOr" />
+		<Using Include="hiPower.Dto.Manager" />
+		<Using Include="hiPower.Dto.Remote" />
+		<Using Include="hiPower.Common.Type.Options"/>
 	</ItemGroup>
 	
   <ItemGroup>
@@ -18,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\hiPower.Common.Type\hiPower.Common.Type.csproj" />
     <ProjectReference Include="..\hiPower.Dto\hiPower.Dto.csproj" />
     <ProjectReference Include="..\hiPower.Entity\hiPower.Entity.csproj" />
   </ItemGroup>

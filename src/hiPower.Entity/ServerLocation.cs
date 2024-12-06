@@ -10,5 +10,5 @@ public class ServerLocation : EntityBase
     public string PostalCode { get; set; }
     public string Country { get; set; }
 
-    public ICollection<Server> Servers { get; set; }
+    public ICollection<ServerDetails> Servers { get; set; }
 }
