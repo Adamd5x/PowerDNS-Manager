@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using System.Net.Http.Json;
 using System.Text.Json;
 using ErrorOr;
 using hiPower.Abstracts;
@@ -14,7 +15,7 @@ public class RemoteService (IHttpClientFactory clientFactory) : IRemoteService
     private readonly ApiAddressConfiguration addressBuilder = new();
     private readonly JsonSerializerOptions jsonSerializerOptions = new ()
     {
-        PropertyNameCaseInsensitive = true,
+        PropertyNameCaseInsensitive = true
     };
 
     public async Task<ErrorOr<IEnumerable<ConfigSetting>>> GetConfigurationAsync (RemoteServiceOptions options)
@@ -49,19 +50,38 @@ public class RemoteService (IHttpClientFactory clientFactory) : IRemoteService
                              .ToErrorOr ();
     }
 
-    public async Task<ErrorOr<IEnumerable<StatisticsItem>>> GetStatisticsAsync (RemoteServiceOptions options)
+    public async Task<ErrorOr<IEnumerable<StatisticsItem>>> GetStatisticsAsync (RemoteServiceOptions options, IEnumerable<string> statItemsList)
     {
         ConfigureRequest (options);
-        var response = await httpClient.GetAsync($"{Consts.EnpointApiPrefix}/servers/{options.LocalId}/statistics");
-        if (!response.IsSuccessStatusCode)
+        string endpointUrl = $"{Consts.EnpointApiPrefix}/servers/{options.LocalId}/statistics";
+        var statistics = new List<StatisticsItem> ();
+        try
         {
-            return Error.Failure ();
+            await foreach(var item in httpClient.GetFromJsonAsAsyncEnumerable<StatisticsItem> (endpointUrl, jsonSerializerOptions, default))
+            {
+                if (statItemsList.Any() && statItemsList.Contains (item.Name, StringComparer.OrdinalIgnoreCase) && item?.Type == "StatisticItem")
+                {
+                    statistics.Add (item);
+                    bool isListFilledout = statistics.Count == statItemsList.Count();
+                    if (isListFilledout)
+                    {
+                        break;
+                    }
+                    continue;
+                }
+
+                if (!statItemsList.Any ())
+                {
+                    statistics.Add (item);
+                }
+            }
+        }
+        catch (Exception ex) 
+        {
+            Console.WriteLine($"Wystąpił błąd: {ex.Message}");
         }
 
-        var content = await response.Content.ReadAsStringAsync ();
-
-        return JsonSerializer.Deserialize<IEnumerable<StatisticsItem>> (content, jsonSerializerOptions)
-                             .ToErrorOr ();
+        return statistics;
     }
 
     private void ConfigureRequest(RemoteServiceOptions options)

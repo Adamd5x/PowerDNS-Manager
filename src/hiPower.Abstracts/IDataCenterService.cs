@@ -2,8 +2,8 @@
 
 public interface IDataCenterService
 {
-    Task<ErrorOr<DataCenter>> CreateAsync(DataCenter location);
-    Task<ErrorOr<DataCenter>> UpdateAsync(string id, DataCenter location);
+    Task<ErrorOr<DataCenter>> CreateAsync(DataCenter dataCenter);
+    Task<ErrorOr<DataCenter>> UpdateAsync(string id, DataCenter dataCenter);
     Task<ErrorOr<bool>> DeleteAsync (string id);
     Task<ErrorOr<DataCenter>> GetAsync (string id);
     Task<ErrorOr<IEnumerable<DataCenter>>> GetAsync ();

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using hiPower.Database;
@@ -11,9 +12,11 @@ using hiPower.Database;
 namespace hiPower.Database.Migrations
 {
     [DbContext(typeof(ManagerDbContext))]
-    partial class ManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241208150558_AddMonitorService")]
+    partial class AddMonitorService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,61 +24,6 @@ namespace hiPower.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("hiPower.Entity.DataCenter", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("City")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("Country")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("PostalCode")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Region")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("T_DataCenter", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7EB5999F-AEF5-11EF-9FD9-47F022E22A50",
-                            Address = "",
-                            City = "",
-                            Country = "Default",
-                            Description = "Initial location",
-                            Name = "Default",
-                            PostalCode = "",
-                            Region = ""
-                        });
-                });
 
             modelBuilder.Entity("hiPower.Entity.MonitorService", b =>
                 {
@@ -131,11 +79,6 @@ namespace hiPower.Database.Migrations
                     b.Property<string>("Configuration")
                         .HasColumnType("text");
 
-                    b.Property<string>("DataCenterId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
-
                     b.Property<string>("Description")
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
@@ -148,6 +91,11 @@ namespace hiPower.Database.Migrations
                     b.Property<string>("LocalId")
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
+
+                    b.Property<string>("LocationId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
 
                     b.Property<string>("MonitorId")
                         .HasColumnType("text");
@@ -181,9 +129,64 @@ namespace hiPower.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DataCenterId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("T_ServiceDetails", (string)null);
+                });
+
+            modelBuilder.Entity("hiPower.Entity.ServiceLocation", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("T_ServiceLocation", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7EB5999F-AEF5-11EF-9FD9-47F022E22A50",
+                            Address = "",
+                            City = "",
+                            Country = "Default",
+                            Description = "Initial location",
+                            Name = "Default",
+                            PostalCode = "",
+                            Region = ""
+                        });
                 });
 
             modelBuilder.Entity("hiPower.Entity.StatisticsVariable", b =>
@@ -651,23 +654,23 @@ namespace hiPower.Database.Migrations
 
             modelBuilder.Entity("hiPower.Entity.ServiceDetails", b =>
                 {
-                    b.HasOne("hiPower.Entity.DataCenter", "DataCenter")
+                    b.HasOne("hiPower.Entity.ServiceLocation", "Location")
                         .WithMany("Servers")
-                        .HasForeignKey("DataCenterId")
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("DataCenter");
-                });
-
-            modelBuilder.Entity("hiPower.Entity.DataCenter", b =>
-                {
-                    b.Navigation("Servers");
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("hiPower.Entity.ServiceDetails", b =>
                 {
                     b.Navigation("MonitorStatistics");
+                });
+
+            modelBuilder.Entity("hiPower.Entity.ServiceLocation", b =>
+                {
+                    b.Navigation("Servers");
                 });
 #pragma warning restore 612, 618
         }

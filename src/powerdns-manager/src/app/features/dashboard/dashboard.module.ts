@@ -15,10 +15,15 @@ import { HomeComponent } from './home/home.component';
 import { LoadingModule } from '@shared/components/loading/loading.module';
 import { LoadingService } from '@shared/components/loading/loading.service';
 
+import { CommonModuleComponent } from './features/common-module/common-module.component';
+import { RemoteModuleComponent } from './features/remote-module/remote-module.component';
+
 @NgModule({
   declarations: [
     LayoutComponent,
-    HomeComponent
+    HomeComponent,
+    CommonModuleComponent,
+    RemoteModuleComponent
   ],
   imports: [
     CoreModule,

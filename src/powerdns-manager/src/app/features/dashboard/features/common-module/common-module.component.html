@@ -1,1 +1,17 @@
-<p>common-module works!</p>
+<div class="container" *ngIf="data | async as UptimeData" #container>
+    <mat-card>
+        <mat-card-content>
+            <ng-content *ngIf="UptimeData.value; else placeholder">
+                <span>Uptime</span>
+                <h2>{{ calculateDays(UptimeData.value) }}<span>days</span></h2>
+                <p>{{ UptimeData.name }}</p>
+            </ng-content>
+            <ng-template #placeholder>
+                <span>Uptime</span>
+                <h2>N/A<span>days</span></h2>
+                <p>{{ serviceName }}</p>
+            </ng-template>
+        </mat-card-content>
+    </mat-card>
+</div>
+

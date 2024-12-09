@@ -1,6 +1,6 @@
 ﻿namespace hiPower.Common.Type;
 
-public enum ServerState
+public enum ServiceState
 {
     Unknown = 0,
     On = 10,

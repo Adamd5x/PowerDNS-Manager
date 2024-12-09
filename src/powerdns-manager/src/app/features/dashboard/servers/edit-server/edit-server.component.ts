@@ -21,7 +21,7 @@ export class EditServerComponent implements OnInit {
       Validators.required
     ]],
     description: [''],
-    locationId: ['', [
+    dataCenterId: ['', [
       Validators.required
     ]],
     proto: ['', [

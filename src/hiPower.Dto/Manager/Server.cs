@@ -4,7 +4,7 @@ namespace hiPower.Dto.Manager;
 
 public class Server { 
    public string Id { get; set; }
-   public string LocationId { get; set; }
+   public string DataCenterId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public CommunicationProto Proto { get; set; }

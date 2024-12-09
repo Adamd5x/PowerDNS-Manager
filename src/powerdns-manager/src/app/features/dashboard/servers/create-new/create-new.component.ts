@@ -19,7 +19,7 @@ export class CreateNewComponent implements OnInit {
     name: ['', [
       Validators.required
     ]],
-    locationId: ['', [
+    dataCenterId: ['', [
       Validators.required
     ]],
     proto: ['', [
@@ -59,7 +59,7 @@ export class CreateNewComponent implements OnInit {
                         .createServer({
                           id: '',
                           name: serverData.name!,
-                          locationId: serverData.locationId,
+                          dataCenterId: serverData.dataCenterId,
                           proto: serverData.proto!,
                           hostAddress: serverData.hostAddress!,
                           port: serverData.port!,
@@ -68,9 +68,7 @@ export class CreateNewComponent implements OnInit {
                           version: serverData.version,
                           os: serverData.os,
                           configuration: serverData.configuration,
-                          localId: serverData.localId,
-                          timeout: serverData.timeout,
-                          retries: serverData.retries
+                          localId: serverData.localId
                         });
 
       save$.subscribe({

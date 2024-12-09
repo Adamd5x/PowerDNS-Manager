@@ -10,12 +10,12 @@ namespace hiPower.Repository
         private bool _disposed = false;
         private readonly ManagerDbContext dbContext = new(options);
 
-        private IGenericRepository<ServerLocation>? dataCenterRepository;
-        private IGenericRepository<ServerDetails>? serverRepository;
+        private IGenericRepository<DataCenter>? dataCenterRepository;
+        private IGenericRepository<ServiceDetails>? serverRepository;
 
-        public IGenericRepository<ServerLocation> DataCenterRepository => dataCenterRepository ??= new GenericRepository<ServerLocation> (dbContext);
+        public IGenericRepository<DataCenter> DataCenterRepository => dataCenterRepository ??= new GenericRepository<DataCenter> (dbContext);
 
-        public IGenericRepository<ServerDetails> ServerRepository => serverRepository ??= new GenericRepository<ServerDetails> (dbContext);
+        public IGenericRepository<ServiceDetails> ServerRepository => serverRepository ??= new GenericRepository<ServiceDetails> (dbContext);
 
         public async Task SaveAsync ()
         {

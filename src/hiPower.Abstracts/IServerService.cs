@@ -12,5 +12,6 @@ public interface IServerService
 
     Task<ErrorOr<IEnumerable<ConfigSetting>>> GetRemoteConfigurationAsync(string id);
     Task<ErrorOr<IEnumerable<StatisticsItem>>> GetRemoteStatisticsAsync (string id);
+    Task<ErrorOr<IEnumerable<StatisticsItem>>> GetRemoteUptimeAsync (string id);
     Task<ErrorOr<ServerInfo>> GetRemoteServerInfoAsync(string id);
 }

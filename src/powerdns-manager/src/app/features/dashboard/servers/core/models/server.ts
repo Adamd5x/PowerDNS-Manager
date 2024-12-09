@@ -1,7 +1,7 @@
 export interface Server {
     id: string;
     name: string;
-    locationId?: string;
+    dataCenterId?: string;
     description?: string;
     proto: string;
     hostAddress: string;
@@ -11,7 +11,5 @@ export interface Server {
     version?: string;
     os?: string;
     configuration?: string;
-    localId?: string;
-    timeout?: number;
-    retries?: number;
+    localId?: string
 }

@@ -2,11 +2,11 @@
 
 namespace hiPower.Core.Mappings;
 
-internal class LocationMapping : IRegister
+internal class DataCenterMapping : IRegister
 {
     public void Register (TypeAdapterConfig config)
     {
-        config.NewConfig<DataCenter, ServerLocation> ()
+        config.NewConfig<Dto.Manager.DataCenter, Entity.DataCenter> ()
               .Map (dest => dest.Id, src => src.Id)
               .Map (dest => dest.Name, src => src.Name)
               .Map (dest => dest.Address, src => src.Address)
@@ -16,7 +16,7 @@ internal class LocationMapping : IRegister
               .Map (dest => dest.Country, src => src.Country)
               .Map (dest => dest.Description, src => src.Description);
 
-        config.NewConfig<ServerLocation, DataCenter> ()
+        config.NewConfig<Entity.DataCenter, Dto.Manager.DataCenter> ()
               .Map (dest => dest.Id, src => src.Id)
               .Map (dest => dest.Name, src => src.Name)
               .Map (dest => dest.Address, src => src.Address)
@@ -26,7 +26,7 @@ internal class LocationMapping : IRegister
               .Map (dest => dest.Country, src => src.Country)
               .Map( dest => dest.Description, src => src.Description);
 
-        config.NewConfig<DataCenter, HintItem>()
+        config.NewConfig<Dto.Manager.DataCenter, HintItem>()
               .Map(dest => dest.Id, src => src.Id)
               .Map(dest => dest.Name, src => src.Name);
     }

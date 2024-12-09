@@ -10,7 +10,6 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ManagerErrorHandler } from './handlers/manager-error-handler';
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -21,7 +20,8 @@ import { ManagerErrorHandler } from './handlers/manager-error-handler';
         MatCommonModule,
         MatProgressBarModule
     ],
-    exports: [],
+    exports: [
+    ],
     providers: [
         {
             provide: ErrorHandler,

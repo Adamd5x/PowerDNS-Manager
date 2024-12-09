@@ -2,7 +2,7 @@
 
 namespace hiPower.Entity;
 
-public class ServerDetails: EntityBase
+public class ServiceDetails : EntityBase
 {
     public string Name { get; set; }
 
@@ -26,15 +26,13 @@ public class ServerDetails: EntityBase
 
     public string Configuration { get; set; }
 
-    public ServerState State { get; set; }
+    public ServiceState State { get; set; }
 
-    [Obsolete]
-    public int Timeout { get; set; }
+    public string DataCenterId { get; set; }
 
-    [Obsolete]
-    public int Retries { get; set; }
+    public DataCenter DataCenter { get; set; }
 
-    public string LocationId { get; set; }
+    public virtual string MonitorId {get; set; }
 
-    public ServerLocation Location { get; set; }
+    public virtual ICollection<MonitorVariables> MonitorStatistics { get; set; }
 }

@@ -1,5 +1,4 @@
 ﻿using hiPower.Abstracts;
-using hiPower.Dto.Remote;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,6 +60,14 @@ namespace hiPower.WebApi.Controllers
         public async Task<IActionResult> GetStatistics ([FromRoute] string id)
         {
             var result = await serverService.GetRemoteStatisticsAsync (id);
+            return Ok (result.Value);
+        }        
+        
+        [HttpGet ("{id}/uptime")]
+        [ValidateIdFilter]
+        public async Task<IActionResult> GetUptime ([FromRoute] string id)
+        {
+            var result = await serverService.GetRemoteUptimeAsync (id);
             return Ok (result.Value);
         }
 

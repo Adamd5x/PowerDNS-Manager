@@ -13,7 +13,10 @@ public partial class ManagerDbContext (DbContextOptions<ManagerDbContext> option
 
     protected override void OnModelCreating (ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration (new ServerLocationEntityConfiguration ());
-        modelBuilder.ApplyConfiguration (new ServerEntityConfiguration ());
+        modelBuilder.ApplyConfiguration (new DataCenterEntityConfiguration ());
+        modelBuilder.ApplyConfiguration (new ServiceDetailsEntityConfiguration ());
+        modelBuilder.ApplyConfiguration(new StatisticsVariableEntityConfiguration ());
+        modelBuilder.ApplyConfiguration(new MonitorServiceEntityConfiguration ());
+        modelBuilder.ApplyConfiguration(new MonitorVariablesEntityConfiguration ());
     }
 }

@@ -11,7 +11,7 @@ public class ServerService(IUnitOfWork unit,
 {
     public async Task<ErrorOr<Server>> CreateAsync (Server server)
     {
-        var result = await unit.ServerRepository.CreateAsync(server.Adapt<ServerDetails>());
+        var result = await unit.ServerRepository.CreateAsync(server.Adapt<ServiceDetails>());
         await unit.SaveAsync ();
         return mapper.Map<Server> (result);
     }
@@ -24,7 +24,7 @@ public class ServerService(IUnitOfWork unit,
 
     public async Task<ErrorOr<IEnumerable<Server>>> GetAllAsync (string dataCenterId)
     {
-        var result = await unit.ServerRepository.GetAll(x => x.LocationId.Equals(dataCenterId.ToUpper()), null, null);
+        var result = await unit.ServerRepository.GetAll(x => x.DataCenterId.Equals(dataCenterId.ToUpper()), null, null);
         if (result.Any ())
         {
             return result.Adapt<IEnumerable<Server>> ()
@@ -66,7 +66,7 @@ public class ServerService(IUnitOfWork unit,
     {
         if (id.ToUpper ().Equals (server.Id.ToUpper ())) 
         { 
-            var updateServer = server.Adapt<Entity.ServerDetails> ();
+            var updateServer = server.Adapt<Entity.ServiceDetails> ();
             var result = unit.ServerRepository.Update(updateServer);
             await unit.SaveAsync ();
             return await Task.FromResult(result.Adapt<Server>());
@@ -96,6 +96,25 @@ public class ServerService(IUnitOfWork unit,
 
     public async Task<ErrorOr<IEnumerable<StatisticsItem>>> GetRemoteStatisticsAsync (string id)
     {
+        IEnumerable<string> statiscticsParams = [
+            "corrupt-packets",
+            "dnsupdate-answers",
+            "dnsupdate-changes",
+            "dnsupdate-queries",
+            "dnsupdate-refused",
+            "incoming-notifications",
+            "noerror-packets",
+            "nxdomain-packets",
+            "tcp-answers",
+            "tcp-queries",
+            "tcp4-answers",
+            "tcp4-queries",
+            "udp-do-queries",
+            "udp-in-errors",
+            "udp-queries",
+            "udp4-answers",
+            "udp4-queries"];
+        
         var service = await GetAsync(id);
 
         if (service.IsError && service.FirstError.Type == ErrorType.NotFound)
@@ -104,7 +123,29 @@ public class ServerService(IUnitOfWork unit,
         }
 
         var options = service.Value.Adapt<RemoteServiceOptions> ();
-        var response = await remoteService.GetStatisticsAsync (options);
+        var response = await remoteService.GetStatisticsAsync (options, statiscticsParams);
+
+        if (response.IsError)
+        {
+            return response.FirstError;
+        }
+
+        return response;
+    }
+
+    public async Task<ErrorOr<IEnumerable<StatisticsItem>>> GetRemoteUptimeAsync (string id)
+    {
+        IEnumerable<string> statiscticsParams = ["uptime"];
+
+        var service = await GetAsync(id);
+
+        if (service.IsError && service.FirstError.Type == ErrorType.NotFound)
+        {
+            return Error.NotFound ();
+        }
+
+        var options = service.Value.Adapt<RemoteServiceOptions> ();
+        var response = await remoteService.GetStatisticsAsync (options, statiscticsParams);
 
         if (response.IsError)
         {

@@ -8,7 +8,12 @@
     }
 
     mat-toolbar {
-        background-color: $color-blue-navy;
+        background: rgb(12,7,110);
+        background: linear-gradient(87deg,
+                                 rgba(12,7,110,1) 0%,
+                                 rgba(33,33,212,1) 84%, 
+                                 rgba(5,3,138,1) 100%);
+
         color: $color-black;
 
         span {
@@ -20,7 +25,7 @@
         margin: 1.2rem;
         width: 15rem;
         border-right: none;
-        background-color: $color-black;
+        background-color: #05038a;
         color: $color-white;
         border-radius: 1rem;
         padding: 1rem;
@@ -68,8 +73,8 @@
             border-radius: 1rem;
             background-color: $color-gray-light;
             border: solid .5px silver;
-            box-shadow: $border-shadow;      
-
+            box-shadow: $border-shadow;
+            
             > div {
                 display: flex;
                 align-items: flex-start;

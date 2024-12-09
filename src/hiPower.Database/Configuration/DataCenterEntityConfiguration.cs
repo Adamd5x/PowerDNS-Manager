@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace hiPower.Database.Configuration;
 
-internal class ServerLocationEntityConfiguration : IEntityTypeConfiguration<ServerLocation>
+internal class DataCenterEntityConfiguration : IEntityTypeConfiguration<DataCenter>
 {
-    public void Configure (EntityTypeBuilder<ServerLocation> builder)
+    public void Configure (EntityTypeBuilder<DataCenter> builder)
     {
-        builder.ToTable($"{Prefix.Table}{nameof(ServerLocation)}");
+        builder.ToTable($"{Prefix.Table}{nameof(DataCenter)}");
 
         builder.HasKey( x => x.Id );
 
@@ -43,14 +43,14 @@ internal class ServerLocationEntityConfiguration : IEntityTypeConfiguration<Serv
                .HasMaxLength (50);
 
         builder.HasMany(x => x.Servers)
-               .WithOne(y => y.Location)
-               .HasForeignKey(x => x.LocationId)
+               .WithOne(y => y.DataCenter)
+               .HasForeignKey(x => x.DataCenterId)
                .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasData (DefaultLocation);
     }
 
-    private IEnumerable<ServerLocation> DefaultLocation => [
+    private IEnumerable<DataCenter> DefaultLocation => [
         new (){
                 Id = "7eb5999f-aef5-11ef-9fd9-47f022e22a50",
                 Name = "Default",

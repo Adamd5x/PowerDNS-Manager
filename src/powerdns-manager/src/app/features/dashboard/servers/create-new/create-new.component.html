@@ -8,14 +8,15 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Name</mat-label>
                         <input matInput
-                            formControlName="name"
-                            placeholder="Name">
+                               formControlName="name"
+                               maxlength="50"
+                               placeholder="Name">
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     <ng-container *ngIf="dataCenters$ | async as dataCenters">
                         <mat-form-field appearance="outline">
                             <mat-label>Data center</mat-label>
-                            <mat-select formControlName="locationId" >
+                            <mat-select formControlName="dataCenterId" >
                                 <mat-option>Choose one</mat-option>
                                 @for(item of dataCenters; track item) {
                                     <mat-option [value]="item.id">{{item.name}}</mat-option>
@@ -34,48 +35,55 @@
                         </mat-form-field>
                             <mat-form-field appearance="outline">
                             <input matInput
-                            formControlName="hostAddress"
-                            placeholder="Host address">
+                                   formControlName="hostAddress"
+                                   maxlength="250"
+                                   placeholder="Host address">
                         </mat-form-field>
                             <mat-form-field appearance="outline">
                             <input matInput
-                            formControlName="port"
-                            placeholder="Port TCP">                    
+                                   formControlName="port"
+                                   maxlength="5"
+                                   placeholder="Port TCP">                    
                         </mat-form-field>    
                     </div>
                     <mat-form-field appearance="outline">
                         <mat-label>Api key</mat-label>
                         <input matInput
-                            formControlName="apiKey"
-                            placeholder="Api key">
+                               formControlName="apiKey"
+                               maxlength="250"
+                               placeholder="Api key">
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Auth token</mat-label>
                         <input matInput
-                            formControlName="auth"
-                            placeholder="Auth token">
+                               formControlName="auth"
+                               maxlength="250"
+                               placeholder="Auth token">
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Local Id</mat-label>
                         <input matInput
-                            formControlName="localId"
-                            placeholder="Local Id">
+                               formControlName="localId"
+                               maxlength="250"
+                               placeholder="Local Id">
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Version</mat-label>
                         <input matInput
-                            formControlName="version"
-                            placeholder="Varsion">
+                               formControlName="version"
+                               maxlength="20"
+                               placeholder="Varsion">
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>OS</mat-label>
                         <input matInput
-                            formControlName="os"
-                            placeholder="OS">
+                               formControlName="os"
+                               maxlength="150"
+                               placeholder="OS">
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     </div>
@@ -83,16 +91,17 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Configuration</mat-label>
                         <textarea matInput
-                                formControlName="configuration"
-                                placeholder="configuration">
+                                  formControlName="configuration"
+                                  placeholder="configuration">
                         </textarea>
                         <mat-hint align="end"></mat-hint>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Description</mat-label>
                         <textarea matInput
-                                formFontrolName="description"
-                                placeholder="Description">
+                                  formFontrolName="description"
+                                  maxlength="250"
+                                  placeholder="Description">
                         </textarea>
                     </mat-form-field>
                 </div>

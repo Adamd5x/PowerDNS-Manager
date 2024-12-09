@@ -1,14 +1,15 @@
-﻿using hiPower.Entity;
+﻿using hiPower.Common.Type;
+using hiPower.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace hiPower.Database.Configuration;
 
-internal class ServerEntityConfiguration : IEntityTypeConfiguration<ServerDetails>
+internal class ServiceDetailsEntityConfiguration : IEntityTypeConfiguration<ServiceDetails>
 {
-    public void Configure (EntityTypeBuilder<ServerDetails> builder)
+    public void Configure (EntityTypeBuilder<ServiceDetails> builder)
     {
-        builder.ToTable ($"{Prefix.Table}Server");
+        builder.ToTable ($"{Prefix.Table}{nameof(ServiceDetails)}");
 
         builder.HasKey ( t => t.Id );
 
@@ -18,7 +19,7 @@ internal class ServerEntityConfiguration : IEntityTypeConfiguration<ServerDetail
                               value => value)
                .IsRequired ();
 
-        builder.Property(p => p.LocationId)
+        builder.Property(p => p.DataCenterId)
                .HasMaxLength(36)
                .HasConversion(value => value.ToUpperInvariant(),
                               value => value)
@@ -59,13 +60,14 @@ internal class ServerEntityConfiguration : IEntityTypeConfiguration<ServerDetail
                .HasMaxLength (250);
 
         builder.Property (p => p.State)
-               .HasPrecision (0, 3)
+               .HasConversion(value => value.ToString(),
+                              value => Enum.Parse<ServiceState>(value,true))
+               .HasMaxLength(10)
                .IsRequired();
 
-        builder.Property (p => p.Timeout)
-               .HasPrecision (0, 5);
-
-        builder.Property (p => p.Retries)
-               .HasPrecision (0, 2);
+        builder.HasMany (x => x.MonitorStatistics)
+               .WithOne (y => y.ServiceDetails)
+               .HasForeignKey (k => k.ServiceId)
+               .OnDelete(DeleteBehavior.ClientCascade);
     }
 }

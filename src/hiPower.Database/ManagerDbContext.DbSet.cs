@@ -5,6 +5,9 @@ namespace hiPower.Database;
 
 public partial class ManagerDbContext
 {
-    public DbSet<ServerDetails> Servers { get; set; }
-    public DbSet<ServerLocation>  Locations { get; set; }
+    public DbSet<ServiceDetails> Servers { get; set; }
+    public DbSet<DataCenter>  Locations { get; set; }
+    public DbSet<StatisticsVariable> StatisticsVariables { get; set; }
+    public DbSet<MonitorService> Monitors { get; set; }
+    public DbSet<MonitorVariables> MonitorVariables { get; set; }
 }

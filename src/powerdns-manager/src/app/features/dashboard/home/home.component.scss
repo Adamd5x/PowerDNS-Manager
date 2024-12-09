@@ -1,0 +1,28 @@
+@import '/src/styles/utils/variables';
+
+:host {
+    div.row {
+        display: flex;
+        flex-direction: row;
+        margin: 1rem 0 1rem 0;
+    }
+
+    div.no-data-placeholder {
+        h2 {
+            margin: 0 0 .65rem 0;
+            padding: .3rem 0 0 .4rem;
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 0.8rem;
+            font-style: normal;
+            text-align: right;
+        }
+
+        p:before {
+            content: "service: ";
+            font-style: italic;
+        }
+    }
+}

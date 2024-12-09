@@ -1,6 +1,6 @@
 ﻿namespace hiPower.Entity;
 
-public class ServerLocation : EntityBase
+public class DataCenter : EntityBase
 {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -10,5 +10,5 @@ public class ServerLocation : EntityBase
     public string PostalCode { get; set; }
     public string Country { get; set; }
 
-    public ICollection<ServerDetails> Servers { get; set; }
+    public ICollection<ServiceDetails> Servers { get; set; }
 }
