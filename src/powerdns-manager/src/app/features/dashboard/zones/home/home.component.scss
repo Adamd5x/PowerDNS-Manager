@@ -1,0 +1,24 @@
+:host {
+    ul {
+        font-size: 1rem;
+        list-style-type: '» ';
+        margin-left: 2rem;
+
+        li {
+            font-weight: 600;
+
+            & > span {
+                display: inline-block;
+                width: 12ch;
+                font-weight: 500;
+
+                &::after {
+                    content: ':';
+                }
+            }
+        }
+        ul {
+            list-style-type: '- ';
+        }
+    }
+}

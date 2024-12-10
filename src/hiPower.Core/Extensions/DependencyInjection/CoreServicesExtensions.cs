@@ -11,6 +11,7 @@ public static class CoreServicesExtensions
     {
         services.AddScoped<IDataCenterService, DataCenterService> ();
         services.AddScoped<IServerService, ServerService> ();
+        services.AddScoped<IZoneService, ZoneService> ();
 
         services.ConfigureMapster ();
 

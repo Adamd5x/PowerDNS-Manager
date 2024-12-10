@@ -1,1 +1,27 @@
 <p>zones home works!</p>
+<ng-container *ngIf="zoneDetails$ | async as zone">
+    <ul>
+        <li><span>Name</span>{{ zone.name }}</li>
+        <li><span>Serial</span>{{ zone.serial }}</li>
+        <li><span>Last check</span>{{ zone.last_check }}</li>
+        <li><span>Kind</span>{{ zone.kind }}</li>
+        <li><span>DNS SEC</span>{{ zone.dnssec}}</li>
+        <li><span>Records no</span>{{ zone.rrsets.length }}</li>
+        <li><span>Api rectify</span>{{ zone.api_rectify}}</li>
+        <li><span>Url</span>{{ zone.url }}</li>
+    </ul>
+    <hr>
+    <ul>
+    @for(item of zone.rrsets; track (item.type + item.name) ) {
+        <li><span>{{ item.type }}</span><br/>
+            Name: {{ item.name }}<br/>
+            values: 
+            <ul>
+            @for(recordValue of item.records; track recordValue.content ) {
+                <li>{{ recordValue.content }}</li>
+            }
+            </ul>
+        </li>
+    }
+    </ul>
+</ng-container>
