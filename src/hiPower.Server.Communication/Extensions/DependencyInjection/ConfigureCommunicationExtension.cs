@@ -29,6 +29,7 @@ public static class ConfigureCommunicationExtension
         });
 
         services.AddScoped<IRemoteService, RemoteService> ();
+        services.AddScoped<IRemoteZoneService, RemoteZoneService> ();
 
         return services;
     }

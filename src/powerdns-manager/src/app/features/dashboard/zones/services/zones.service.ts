@@ -29,8 +29,8 @@ export class ZonesService extends DataService {
                );
   }
 
-  getDetails(zoneId: string): Observable<ZoneDetails> {
-    return this.get<ApiResponse<ZoneDetails>>(`${this.apiUrl}/{zoneId}`)
+  getDetails(serviceId: string, zoneId: string): Observable<ZoneDetails> {
+    return this.get<ApiResponse<ZoneDetails>>(`${this.apiUrl}/${serviceId}/zone/${zoneId}`)
                .pipe(
                   filter(x => x.success),
                   map(x => x.data as ZoneDetails)

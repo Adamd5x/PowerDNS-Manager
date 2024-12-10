@@ -15,8 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private zonesService: ZonesService){}
 
   ngOnInit(): void {
-    this.zoneDetails$ = this.zonesService.getDetails('hihost.pl');
-    
+    this.zoneDetails$ = this.zonesService.getDetails('313629D3-C43A-44CA-972D-EE92073791D5','example.com');
     this.zoneDetails$.subscribe();
   }
 }

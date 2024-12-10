@@ -8,12 +8,17 @@ namespace hiPower.WebApi.Controllers
     [Produces (MediaTypeNames.Application.Json)]
     public class ZonesController(IZoneService zoneService) : ControllerBase
     {
-        [HttpGet("{zoneId}")]
+        [HttpGet("{id}/zone/{zoneId}")]
+        [ValidateIdFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(ApiResult<object>))]
-        public async Task<IActionResult> GetDetails ([FromRoute] string zoneId)
+        public async Task<IActionResult> GetDetails ([FromRoute] string id, [FromRoute] string zoneId)
         {
-            var result = await zoneService.GetDetailsAsync (zoneId);
-            return Ok (new ApiResult<object>(!result.IsError, result.Value));
+            var result = await zoneService.GetDetailsAsync (id, zoneId);
+            if (result.IsError && result.FirstError.Type == ErrorType.NotFound)
+            {
+                return NotFound (zoneId);
+            }
+            return Ok (new ApiResult<object>(!result.IsError, result.Value ));
         }
     }
 }

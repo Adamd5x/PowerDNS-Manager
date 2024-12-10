@@ -9,15 +9,8 @@ using hiPower.Dto.Remote;
 
 namespace hiPower.Server.Communication;
 
-public class RemoteService (IHttpClientFactory clientFactory) : IRemoteService
+public class RemoteService (IHttpClientFactory clientFactory) : RemoteServiceBase (clientFactory), IRemoteService
 {
-    private readonly HttpClient httpClient = clientFactory.CreateClient(Consts.HttpClientName);
-    private readonly ApiAddressConfiguration addressBuilder = new();
-    private readonly JsonSerializerOptions jsonSerializerOptions = new ()
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
     public async Task<ErrorOr<IEnumerable<ConfigSetting>>> GetConfigurationAsync (RemoteServiceOptions options)
     {
         ConfigureRequest (options);
@@ -82,15 +75,5 @@ public class RemoteService (IHttpClientFactory clientFactory) : IRemoteService
         }
 
         return statistics;
-    }
-
-    private void ConfigureRequest(RemoteServiceOptions options)
-    {
-        var baseAddress = addressBuilder.SetProtocol(options.Proto)
-                                        .SetHost(options.HostAddress)
-                                        .SetPort(options.Port)
-                                        .Build();
-        httpClient.BaseAddress = new Uri(baseAddress);
-        httpClient.DefaultRequestHeaders.Add(Consts.ApiKeyHeaderName, options.ApiKey);
     }
 }

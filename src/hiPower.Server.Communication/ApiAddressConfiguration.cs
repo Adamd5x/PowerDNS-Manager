@@ -4,7 +4,7 @@ using hiPower.Common.Type;
 
 namespace hiPower.Server.Communication;
 
-internal class ApiAddressConfiguration
+public class ApiAddressConfiguration
 {
     private const uint IANAMinTcpPortRange = 1024;
     private const uint IANAMaxTcpPortRange = 49151;
