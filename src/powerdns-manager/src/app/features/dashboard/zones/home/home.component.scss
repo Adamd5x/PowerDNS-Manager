@@ -1,3 +1,5 @@
+@import '/src/styles/utils/variables';
+
 :host {
     ul {
         font-size: 1rem;
@@ -19,6 +21,57 @@
         }
         ul {
             list-style-type: '- ';
+        }
+    }
+
+    .listContainer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1rem;
+        margin-bottom: 1rem;
+
+        .header {
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        > div {
+            background-color: $color-white;
+            height: 280px;
+            overflow: hidden;
+            overflow-y: auto;            
+        }
+
+
+        .listItem {
+            a {
+                color: $color-blue-navy;
+                font-size: 0.9rem;
+                font-weight: 600;
+    
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+            .description {
+                color: $color-blue-navy !important;
+            }
+        }
+    }
+
+    .resultContainer {
+        height: 500px !important;
+        width: 1550px;
+        overflow: hidden;
+        background-color: $color-white;
+
+        .details {
+            border-top: solid 1px $color-blue-navy;
+            height: 300px;
+            overflow: hidden;
+            overflow-y: scroll;
         }
     }
 }

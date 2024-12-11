@@ -41,9 +41,6 @@ export class ConfigService {
   getEndpoint(type: EndpointType): string {
     const endpoints = this.getEndpoints();
     const found = endpoints[type];
-
-    console.log(`Endpoint url: ${environment.apiUrl}/${found?.url}`);
-    
     return found?.url;
   }
 

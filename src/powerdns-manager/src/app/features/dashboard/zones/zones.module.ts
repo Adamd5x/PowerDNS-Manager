@@ -6,6 +6,11 @@ import { SharedModule } from '@shared/shared.module';
 import { MaterialsModule } from '@shared/materiald.module';
 import { ZonesService } from '@features/dashboard/zones/services/zones.service';
 import { ManagerErrorHandler } from '@shared/handlers/manager-error-handler';
+import { DataCenterService } from '../data-centers/services/data-center.service';
+import { ServerService } from '../servers/services/server-service.service';
+import { LoadingService } from '@shared/components/loading/loading.service';
+import { LoadingModule } from '@shared/components/loading/loading.module';
+
 
 @NgModule({
   declarations: [
@@ -15,10 +20,14 @@ import { ManagerErrorHandler } from '@shared/handlers/manager-error-handler';
     CommonModule,
     ZonesRoutingModule,
     SharedModule,
-    MaterialsModule
+    MaterialsModule,
+    LoadingModule
   ],
   providers: [
     ZonesService,
+    DataCenterService,
+    ServerService,
+    LoadingService,
     {
       provide: ErrorHandler,
       useClass: ManagerErrorHandler

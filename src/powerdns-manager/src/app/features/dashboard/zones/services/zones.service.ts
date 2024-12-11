@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, map, Observable,
-         of } from 'rxjs';
+import { filter,
+         map,
+         Observable } from 'rxjs';
 
 import { DataService } from '@shared/base/data.service';
 import { ConfigService } from 'src/app/initializer/config.service';
@@ -22,7 +23,7 @@ export class ZonesService extends DataService {
   }
 
   getList(serviceId: string): Observable<ZoneItem[]> {
-    return this.get<ApiResponse<ZoneItem[]>>(`${this.apiUrl}`)
+    return this.get<ApiResponse<ZoneItem[]>>(`${this.apiUrl}/${serviceId}`)
                .pipe(
                   filter(x => x.success),
                   map(x => x.data as ZoneItem[])

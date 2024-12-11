@@ -29,9 +29,18 @@ public class ZoneService(IRemoteZoneService remoteZoneService,
         return result;
     }
 
-    public Task<ErrorOr<object>> GetListAsync (string serviceId)
+    public async Task<ErrorOr<object>> GetListAsync (string serviceId)
     {
-        throw new NotImplementedException ();
+        var service = await serverService.GetAsync (serviceId);
+        var options = service.Value.Adapt<RemoteServiceOptions> ();
+        var result = await remoteZoneService.GetZonesListAsync (options);
+
+
+        if (result.IsError)
+        {
+            return result.Errors;
+        }
+        return result;
     }
 
     public Task<ErrorOr<object>> UpdateDetailsAsync ()

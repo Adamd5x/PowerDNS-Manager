@@ -1,27 +1,90 @@
-<p>zones home works!</p>
-<ng-container *ngIf="zoneDetails$ | async as zone">
-    <ul>
-        <li><span>Name</span>{{ zone.name }}</li>
-        <li><span>Serial</span>{{ zone.serial }}</li>
-        <li><span>Last check</span>{{ zone.last_check }}</li>
-        <li><span>Kind</span>{{ zone.kind }}</li>
-        <li><span>DNS SEC</span>{{ zone.dnssec}}</li>
-        <li><span>Records no</span>{{ zone.rrsets.length }}</li>
-        <li><span>Api rectify</span>{{ zone.api_rectify}}</li>
-        <li><span>Url</span>{{ zone.url }}</li>
-    </ul>
-    <hr>
-    <ul>
-    @for(item of zone.rrsets; track (item.type + item.name) ) {
-        <li><span>{{ item.type }}</span><br/>
-            Name: {{ item.name }}<br/>
-            values: 
+<loading></loading>
+<ng-container>
+    <div class="listContainer">
+        <div>
+            <mat-list>
+                <div mat-subheader class="header">Data centers</div>
+                @for(dataCenter of dataCenters$ | async; track dataCenter.id) {
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>folder</mat-icon>
+                        <div matListItemTitle
+                             class="listItem">
+                            <a (click)="onDataCenterClick(dataCenter.id!)">
+                                {{ dataCenter.name }}
+                            </a>
+                        </div>
+                        <div matListItemLine
+                             class="description">
+                            {{ dataCenter.city }} (Country: {{ dataCenter.country }})
+                        </div>
+                    </mat-list-item>
+                }
+            </mat-list>            
+        </div>
+        <div>
+            <mat-list>
+                <div mat-subheader class="header">Services</div>
+                @for(service of services$ | async; track service.id) {
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>folder</mat-icon>
+                        <div matListItemTitle
+                             class="listItem">
+                            <a (click)="onServiceClick(service.id)">
+                                {{ service.name }}
+                            </a>
+                        </div>
+                        <div matListItemLine>
+                            {{ service.proto}}://{{ service.hostAddress }}:{{ service.port}}
+                        </div>
+                    </mat-list-item>
+                }
+            </mat-list>
+        </div>
+        <div>
+            <mat-list>
+                <div mat-subheader class="header">Zones</div>
+                @for(zoneItem of zones$ | async; track zoneItem.id) {
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>map</mat-icon>
+                        <div matListItemTitle
+                             class="listItem">
+                            <a (click)="onZoneDetailsClick(zoneItem.id)">
+                                {{ zoneItem.name }}
+                            </a>
+                        </div>
+                    </mat-list-item>
+                }
+            </mat-list>
+        </div>
+    </div>
+</ng-container>
+
+<div class="resultContainer">
+    <ng-container *ngIf="zoneDetails$ | async as zone">
+        <ul>
+            <li><span>Name</span>{{ zone.name }}</li>
+            <li><span>Serial</span>{{ zone.serial }}</li>
+            <li><span>Last check</span>{{ zone.last_check }}</li>
+            <li><span>Kind</span>{{ zone.kind }}</li>
+            <li><span>DNS SEC</span>{{ zone.dnssec}}</li>
+            <li><span>Records no</span>{{ zone.rrsets.length }}</li>
+            <li><span>Api rectify</span>{{ zone.api_rectify}}</li>
+            <li><span>Url</span>{{ zone.url }}</li>
+        </ul>
+        <div class="details">
             <ul>
-            @for(recordValue of item.records; track recordValue.content ) {
-                <li>{{ recordValue.content }}</li>
+            @for(item of zone.rrsets; track (item.type + item.name) ) {
+                <li><span>{{ item.type }}</span><br/>
+                    Name: {{ item.name }}<br/>
+                    values: 
+                    <ul>
+                    @for(recordValue of item.records; track recordValue.content ) {
+                        <li>{{ recordValue.content }}</li>
+                    }
+                    </ul>
+                </li>
             }
             </ul>
-        </li>
-    }
-    </ul>
-</ng-container>
+        </div>
+    </ng-container>
+</div>

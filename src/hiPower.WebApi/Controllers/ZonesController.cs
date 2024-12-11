@@ -20,5 +20,17 @@ namespace hiPower.WebApi.Controllers
             }
             return Ok (new ApiResult<object>(!result.IsError, result.Value ));
         }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType (StatusCodes.Status200OK, Type = typeof (ApiResult<object>))]
+        public async Task<IActionResult> GetZones ([FromRoute] string id)
+        {
+            var result = await zoneService.GetListAsync (id);
+            if (result.IsError && result.FirstError.Type == ErrorType.NotFound)
+            {
+                return NotFound ();
+            }
+            return Ok (new ApiResult<object> (!result.IsError, result.Value));
+        }
     }
 }
