@@ -65,8 +65,6 @@ export class ConfigService {
       item[endpoint.endpointType]=endpoint;
       return item;
     }, {} );
-
-    console.log(endpointRecord);    
     return endpointRecord;
   }
 }

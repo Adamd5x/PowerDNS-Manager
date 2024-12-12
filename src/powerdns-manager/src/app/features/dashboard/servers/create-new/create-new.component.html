@@ -20,7 +20,10 @@
                                 <mat-option>Choose one</mat-option>
                                 @for(item of dataCenters; track item) {
                                     <mat-option [value]="item.id">{{item.name}}</mat-option>
-                                }                        
+                                }
+                                @empty {
+                                    <mat-option>No data center available</mat-option>
+                                }
                             </mat-select>
                         </mat-form-field>
                     </ng-container>

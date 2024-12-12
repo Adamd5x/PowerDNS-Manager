@@ -3,7 +3,6 @@ import { Component,
 import { ActivatedRoute } from '@angular/router';
 import { Server } from '../core/models/server';
 import { MatTableDataSource } from '@angular/material/table';
-import { EMPTY } from 'rxjs';
 import { ServiceConfigItem } from '../core/models/service-config-item';
 
 @Component({

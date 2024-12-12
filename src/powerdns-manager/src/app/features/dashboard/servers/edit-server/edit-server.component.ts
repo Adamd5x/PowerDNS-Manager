@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServerService } from '../services/server-service.service';
 import { Server } from '../core/models/server';
 import { ServiceConfigItem } from '../core/models/service-config-item';
+import { filter } from 'rxjs';
+import { ServiceMode } from '@shared/types/service-mode';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { ServiceConfigItem } from '../core/models/service-config-item';
 })
 export class EditServerComponent implements OnInit {
 
+  serviceMode: ServiceMode = 'Uknown';
   configurationList: ServiceConfigItem[] = [];
 
   private serverId = '';
@@ -57,7 +60,18 @@ export class EditServerComponent implements OnInit {
                       .snapshot
                       .data['serverDetails'];
     this.serverId = server.id;
+    
     this.form.setValue(server);
+
+    this.serviceMode = server.serviceMode;
+
+    this.form
+        .valueChanges
+        .pipe(
+          filter(x => x.serviceMode != 'Uknown')
+        ) .subscribe(
+          (result) => this.serviceMode = result.serviceMode as ServiceMode
+        );
   }
 
   onSubmit(): void {
