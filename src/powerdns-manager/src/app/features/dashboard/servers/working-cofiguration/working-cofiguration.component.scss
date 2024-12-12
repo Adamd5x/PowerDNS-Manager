@@ -1,0 +1,18 @@
+:host {
+    mat-form-field {
+        width: 100%;
+    }
+
+    mat-card {
+        width: 1580px !important;
+    }
+
+    tr.mat-mdc-header-row {
+        font-weight: bold;
+    }
+
+    .tableContainer {
+        height: 580px;
+        overflow: auto;
+    }    
+}

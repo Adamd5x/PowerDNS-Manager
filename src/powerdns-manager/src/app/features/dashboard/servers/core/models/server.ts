@@ -1,3 +1,5 @@
+import { ServiceMode } from "@shared/types/service-mode";
+
 export interface Server {
     id: string;
     name: string;
@@ -11,5 +13,6 @@ export interface Server {
     version?: string;
     os?: string;
     configuration?: string;
-    localId?: string
+    localId?: string;
+    serviceMode?: ServiceMode;
 }

@@ -1,0 +1,1 @@
+export type ServiceMode = 'Uknown' | 'Master' | 'Slave';

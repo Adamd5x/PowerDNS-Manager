@@ -20,7 +20,8 @@ internal class ServerMappring : IRegister
                .Map (dest => dest.Auth, src => src.Auth)
                .Map (dest => dest.Version, src => src.Version)
                .Map (dest => dest.OS, src => src.OS)
-               .Map (dest => dest.Configuration, src => src.Configuration);
+               .Map (dest => dest.Configuration, src => src.Configuration)
+               .Map(dest => dest.Mode, src => src.ServiceMode);
 
         config.NewConfig<ServiceDetails, Server> ()
                .Map (dest => dest.Id, src => src.Id)
@@ -35,9 +36,10 @@ internal class ServerMappring : IRegister
                .Map (dest => dest.Auth, src => src.Auth)
                .Map (dest => dest.Version, src => src.Version)
                .Map (dest => dest.OS, src => src.OS)
-               .Map (dest => dest.Configuration, src => src.Configuration);
+               .Map (dest => dest.Configuration, src => src.Configuration)
+               .Map( dest => dest.ServiceMode, src => src.Mode);
 
         config.NewConfig<ServiceDetails, RemoteServiceOptions> ()
-              .MapWith (src => new RemoteServiceOptions(src.Proto.ToProtocol(), src.HostAddress, Convert.ToUInt16(src.Port), src.LocalId, src.ApiKey, src.Auth));
+              .MapWith (src => new RemoteServiceOptions(src.Proto.ToProtocol(), src.HostAddress, Convert.ToUInt16(src.Port), src.LocalId, src.ApiKey, src.Auth, src.Mode));
     }
 }

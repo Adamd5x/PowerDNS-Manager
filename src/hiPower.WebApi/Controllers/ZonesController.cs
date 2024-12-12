@@ -18,6 +18,12 @@ namespace hiPower.WebApi.Controllers
             {
                 return NotFound (zoneId);
             }
+
+            if (result.Value is null)
+            {
+                return NotFound (zoneId);
+            }
+
             return Ok (new ApiResult<object>(!result.IsError, result.Value ));
         }
 

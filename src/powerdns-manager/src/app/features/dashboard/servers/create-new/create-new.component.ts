@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component,
+         OnInit } from '@angular/core';
+import { FormBuilder,
+         Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServerService } from '../services/server-service.service';
 import { Server } from '../core/models/server';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY,
+         Observable } from 'rxjs';
 import { HintItem } from '@shared/models/hint-item';
 
 @Component({
@@ -39,8 +42,7 @@ export class CreateNewComponent implements OnInit {
     localId: ['', [
       Validators.required
     ]],
-    timeout: ['30'],
-    retries: ['3']
+    serviceMode: ['']
   });
 
 
@@ -68,7 +70,8 @@ export class CreateNewComponent implements OnInit {
                           version: serverData.version,
                           os: serverData.os,
                           configuration: serverData.configuration,
-                          localId: serverData.localId
+                          localId: serverData.localId,
+                          serviceMode: serverData.serviceMode
                         });
 
       save$.subscribe({

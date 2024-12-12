@@ -13,6 +13,8 @@ import { ServiceConfigItem } from '../core/models/service-config-item';
 })
 export class EditServerComponent implements OnInit {
 
+  configurationList: ServiceConfigItem[] = [];
+
   private serverId = '';
 
   form = this.fb.group({
@@ -41,8 +43,7 @@ export class EditServerComponent implements OnInit {
     localId: ['', [
       Validators.required
     ]],
-    timeout: ['30'],
-    retries: ['3']
+    serviceMode: ['']
   });
 
 
@@ -78,6 +79,31 @@ export class EditServerComponent implements OnInit {
         .getServiceConfig(this.serverId)
         .subscribe({
           next: (response: ServiceConfigItem[]) => {
+
+             const primary = response.find(x => x.name === 'primary')?.value;
+             const master = response.find(x => x.name === 'master')?.value;
+             const secondary = response.find(x => x.name === 'secondary')?.value;
+             const slave = response.find(x => x.name === 'slave')?.value;
+
+             const isMaster = (primary === 'yes' || master === 'yes');
+             const isSlave = (secondary == 'yes' || slave === 'yes');
+
+            if (isMaster) {
+              this.form.patchValue({
+                serviceMode: 'Master'
+              });
+            } else if (isSlave) {
+              this.form.patchValue({
+                serviceMode: 'Slave'
+              });
+            } else {
+              this.form.patchValue({
+                serviceMode: 'Uknown'
+              });
+            }
+
+             this.configurationList = response;
+
             const configDetails = JSON.stringify(response);
             this.form.patchValue({
               configuration: configDetails

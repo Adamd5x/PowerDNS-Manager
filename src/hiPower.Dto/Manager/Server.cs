@@ -16,7 +16,6 @@ public class Server {
     public string OS { get; set; }
     public string Configuration { get; set; }
     public string LocalId { get; set; }
-    public int Timeout { get; set; }
 
-    public int Retries { get; set; }
+    public ServiceMode ServiceMode { get; set; }
 }

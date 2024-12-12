@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     'port',
     'os',
     'localId',
+    'mode',
     'action'
   ]
 

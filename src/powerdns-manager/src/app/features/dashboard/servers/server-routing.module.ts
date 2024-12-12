@@ -5,6 +5,8 @@ import { HomeComponent } from "./home/home.component";
 import { EditServerComponent } from "./edit-server/edit-server.component";
 import { CreateNewComponent } from './create-new/create-new.component';
 import { ServerResolver } from './core/resolvers/server.resolver';
+import { WorkingCofigurationComponent } from './working-cofiguration/working-cofiguration.component';
+import { ServiceConfigurationResolver } from './core/resolvers/service-configuration.resolver';
 
 
 const routes : Routes = [
@@ -20,7 +22,13 @@ const routes : Routes = [
         path: ':id',
         component: EditServerComponent,
         resolve: { serverDetails: ServerResolver }
-    }    
+    },
+    {
+        path: 'config/:id',
+        component: WorkingCofigurationComponent,
+        resolve: { serviceConfiguration: ServiceConfigurationResolver,
+                   serviceDetails: ServerResolver }
+    }
 ]
 
 @NgModule({

@@ -28,6 +28,8 @@ public class ServiceDetails : EntityBase
 
     public ServiceState State { get; set; }
 
+    public ServiceMode Mode { get; set; }
+
     public string DataCenterId { get; set; }
 
     public DataCenter DataCenter { get; set; }

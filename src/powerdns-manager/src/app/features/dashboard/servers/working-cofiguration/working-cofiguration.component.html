@@ -1,0 +1,36 @@
+<loading [detectRoutingOngoing]="true"></loading>
+<mat-card>
+    <mat-card-header>
+        Service: {{ serviceDetails?.name }} [{{serviceDetails?.proto}}://{{serviceDetails?.hostAddress}}:{{serviceDetails?.port}}], Mode: {{ serviceDetails?.serviceMode }}
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Filter by parameter</mat-label>
+            <input matInput
+                   (keyup)="applyFilter($event)"
+                   placeholder="parameter name"
+                   #inputFilter>
+        </mat-form-field>
+        <section class="tableContainer">
+        <table mat-table
+               [dataSource]="dataSource">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Configuraion parameter</th>
+                <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="value">
+                <th mat-header-cell *matHeaderCellDef>Value</th>
+                <td mat-cell *matCellDef="let item">{{ item.value }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>
+        </section>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button
+                type="button"
+                aria-label="Back to list button"
+                routerLink="../.."><mat-icon>chevron_left</mat-icon>Back</button>
+    </mat-card-actions>
+</mat-card>

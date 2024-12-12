@@ -65,6 +65,12 @@ internal class ServiceDetailsEntityConfiguration : IEntityTypeConfiguration<Serv
                .HasMaxLength(10)
                .IsRequired();
 
+        builder.Property(p => p.Mode)
+               .HasMaxLength(20)
+               .HasConversion(v => v.ToString(),
+                              v => Enum.Parse<ServiceMode>(v,true))
+               .IsRequired ();
+
         builder.HasMany (x => x.MonitorStatistics)
                .WithOne (y => y.ServiceDetails)
                .HasForeignKey (k => k.ServiceId)

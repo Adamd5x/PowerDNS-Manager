@@ -13,12 +13,14 @@ import { ServerService } from "./services/server-service.service";
 import { HomeComponent } from "./home/home.component";
 import { CreateNewComponent } from './create-new/create-new.component';
 import { EditServerComponent } from './edit-server/edit-server.component';
+import { WorkingCofigurationComponent } from "./working-cofiguration/working-cofiguration.component";
 
 @NgModule({
     declarations: [
         HomeComponent,
         CreateNewComponent,
-        EditServerComponent
+        EditServerComponent,
+        WorkingCofigurationComponent
     ],
     imports: [
         CoreModule,
