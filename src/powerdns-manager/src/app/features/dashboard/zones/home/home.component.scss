@@ -1,6 +1,34 @@
 @import '/src/styles/utils/variables';
 
 :host {
+    color: $color-white;
+
+    mat-card {
+        height: 300px;
+    }
+
+    mat-card-header {
+        font-size: 1rem;
+    }
+
+    mat-card-content {
+        p {
+            font-size: 1rem;
+            color: $color-white;
+        }
+         > div {
+            height: 220px;
+            overflow: hidden;
+            overflow-y: auto;
+         }
+
+         mat-list-item {
+            a {
+                color: $color-white !important;
+            }
+         }
+    }
+
     ul {
         font-size: 1rem;
         list-style-type: '» ';
@@ -36,14 +64,6 @@
             text-decoration: underline;
         }
 
-        > div {
-            background-color: $color-white;
-            height: 280px;
-            overflow: hidden;
-            overflow-y: auto;            
-        }
-
-
         .listItem {
             a {
                 color: $color-blue-navy;
@@ -62,10 +82,10 @@
     }
 
     .resultContainer {
-        height: 500px !important;
+        color: $color-black;
+        height: 480px !important;
         width: 1550px;
         overflow: hidden;
-        background-color: $color-white;
 
         .details {
             border-top: solid 1px $color-blue-navy;

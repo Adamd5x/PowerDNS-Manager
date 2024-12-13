@@ -94,4 +94,16 @@
     .mat-drawer-container {
         background-color: $color-gray-light;
     }
+
+    .sidenav-container {
+        // height: 100vh;
+      }
+      
+      mat-sidenav {
+        width: 250px;
+      }
+      
+      mat-sidenav-content {
+        padding: 16px;
+      }    
 }

@@ -2,59 +2,84 @@
 <ng-container>
     <div class="listContainer">
         <div>
-            <mat-list>
-                <div mat-subheader class="header">Data centers</div>
-                @for(dataCenter of dataCenters$ | async; track dataCenter.id) {
-                    <mat-list-item>
-                        <mat-icon matListItemIcon>folder</mat-icon>
-                        <div matListItemTitle
-                             class="listItem">
-                            <a (click)="onDataCenterClick(dataCenter.id!)">
-                                {{ dataCenter.name }}
-                            </a>
-                        </div>
-                        <div matListItemLine
-                             class="description">
-                            {{ dataCenter.city }} (Country: {{ dataCenter.country }})
-                        </div>
-                    </mat-list-item>
-                }
-            </mat-list>            
+            <mat-card>
+                <mat-card-header>
+                    Data centers
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        @for(dataCenter of dataCenters$ | async; track dataCenter.id) {
+                            <mat-list-item>
+                                <mat-icon matListItemIcon>folder</mat-icon>
+                                <div matListItemTitle
+                                     class="listItem">
+                                    <a (click)="onDataCenterClick(dataCenter.id!)">
+                                        {{ dataCenter.name }}
+                                    </a>
+                                </div>
+                                <div matListItemLine
+                                    class="description">
+                                    {{ dataCenter.city }} (Country: {{ dataCenter.country }})
+                                </div>
+                            </mat-list-item>
+                        }
+                        @empty {
+                            <p>No data</p>
+                        }
+                    </mat-list> 
+                </mat-card-content>
+            </mat-card>
         </div>
         <div>
-            <mat-list>
-                <div mat-subheader class="header">Services</div>
-                @for(service of services$ | async; track service.id) {
-                    <mat-list-item>
-                        <mat-icon matListItemIcon>folder</mat-icon>
-                        <div matListItemTitle
-                             class="listItem">
-                            <a (click)="onServiceClick(service.id)">
-                                {{ service.name }}
-                            </a>
-                        </div>
-                        <div matListItemLine>
-                            {{ service.proto}}://{{ service.hostAddress }}:{{ service.port}}
-                        </div>
-                    </mat-list-item>
-                }
-            </mat-list>
+            <mat-card>
+                <mat-card-header>Services</mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        @for(service of services$ | async; track service.id) {
+                            <mat-list-item>
+                                <mat-icon matListItemIcon>folder</mat-icon>
+                                <div matListItemTitle
+                                     class="listItem">
+                                    <a (click)="onServiceClick(service.id)">
+                                        {{ service.name }}
+                                    </a>
+                                </div>
+                                <div matListItemLine>
+                                    mode: {{ service.serviceMode }}, [{{ service.proto}}://{{ service.hostAddress }}:{{ service.port}}]
+                                </div>
+                            </mat-list-item>
+                        }
+                        @empty {
+                            <p>No data</p>
+                        }
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
         </div>
         <div>
-            <mat-list>
-                <div mat-subheader class="header">Zones</div>
-                @for(zoneItem of zones$ | async; track zoneItem.id) {
-                    <mat-list-item>
-                        <mat-icon matListItemIcon>map</mat-icon>
-                        <div matListItemTitle
-                             class="listItem">
-                            <a (click)="onZoneDetailsClick(zoneItem.id)">
-                                {{ zoneItem.name }}
-                            </a>
-                        </div>
-                    </mat-list-item>
-                }
-            </mat-list>
+            <mat-card>
+                <mat-card-header>Zones</mat-card-header>
+                <mat-card-content>
+                    <div>
+                        <mat-list>
+                            @for(zoneItem of zones$ | async; track zoneItem.id) {
+                                <mat-list-item>
+                                    <mat-icon matListItemIcon>map</mat-icon>
+                                    <div matListItemTitle
+                                        class="listItem">
+                                        <a (click)="onZoneDetailsClick(zoneItem.id)">
+                                            {{ zoneItem.name }}
+                                        </a>
+                                    </div>
+                                </mat-list-item>
+                            }
+                            @empty {
+                                <p>No data</p>
+                            }
+                        </mat-list>
+                    </div>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </ng-container>
@@ -64,7 +89,7 @@
         <ul>
             <li><span>Name</span>{{ zone.name }}</li>
             <li><span>Serial</span>{{ zone.serial }}</li>
-            <li><span>Last check</span>{{ zone.last_check }}</li>
+            <li><span>Last check</span>{{ zone.last_check | date:'yyyy-MM-dd HH:mm:ss' }}</li>
             <li><span>Kind</span>{{ zone.kind }}</li>
             <li><span>DNS SEC</span>{{ zone.dnssec}}</li>
             <li><span>Records no</span>{{ zone.rrsets.length }}</li>

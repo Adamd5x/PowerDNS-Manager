@@ -10,11 +10,13 @@ import { DataCenterService } from '../data-centers/services/data-center.service'
 import { ServerService } from '../servers/services/server-service.service';
 import { LoadingService } from '@shared/components/loading/loading.service';
 import { LoadingModule } from '@shared/components/loading/loading.module';
+import { NewZoneComponent } from './create-zone/new-zone/new-zone.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    NewZoneComponent
   ],
   imports: [
     CommonModule,

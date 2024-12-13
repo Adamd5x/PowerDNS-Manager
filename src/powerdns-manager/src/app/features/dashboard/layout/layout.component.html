@@ -8,13 +8,20 @@
     <div class="drawer-container">
       <button mat-raised-button type="button" aria-label="Go to dashboard" routerLink="/" ><mat-icon>dashboard</mat-icon>Dashboard</button>
       <mat-divider></mat-divider>
-      <button mat-raised-button type="button" aria-label="Go to dns zones" routerLink="zones"><mat-icon>share</mat-icon>Zones</button>      
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-icon>share</mat-icon>
+          <span>Zones</span>
+        </mat-expansion-panel-header>
+        <button mat-raised-button type="button" aria-label="Go to dns zones" routerLink="zones/new"><mat-icon>share</mat-icon>New zone</button>
+        <button mat-raised-button type="button" aria-label="Go to dns zones" routerLink="zones"><mat-icon>share</mat-icon>Zones</button>
+      </mat-expansion-panel>
       <button mat-raised-button type="button" aria-label="Go to server statistics" routerLink="state"><mat-icon>visibility</mat-icon>State</button>
       <button mat-raised-button type="button" aria-label="Go to servers" routerLink="servers"><mat-icon>computer</mat-icon>Servers</button>
       <button mat-raised-button type="button" aria-label="Go to data centers" routerLink="datacenters"><mat-icon>map</mat-icon>Data centers</button>
       <mat-divider></mat-divider>      
       <button mat-raised-button type="button" aria-label="Go to user manager" routerLink="/"><mat-icon>people</mat-icon>Users</button>
-    </div>    
+    </div>
     <div class="author">
       2024 - Adam Debowski
     </div>

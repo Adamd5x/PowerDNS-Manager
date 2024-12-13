@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-layout',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class LayoutComponent {
   isOpen = true;
+
+  @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
   openClose(): void {
     this.isOpen = !this.isOpen;
